@@ -4,10 +4,15 @@ Currently bundled as a docker image, derived from components developed
 in separate Git repositories and distributed via Ubuntu .deb packages
 in <https://github.com/probcomp/packaging>.
 
-To use, pick a directory where you want notebooks to go, say
+Pick a directory where you want notebooks to go, say
 /path/to/notebooks -- perhaps under your home directory on your
 laptop, or perhaps the mount point of an Elastic Block Store on your
-Amazon EC2 instance:
+Amazon EC2 instance.
+
+Pick the name for an image, say probcomp/stack:20170503-3 for the
+third attempt on May 3rd 2017.
+
+Run:
 
 % docker build -t probcomp/stack:20170503-0 -f docker/ubuntu1604 .
 % mkdir /path/to/notebooks
