@@ -1,0 +1,36 @@
+probcomp-stack: MIT Probabilistic Computing Project software stack
+
+Currently bundled as a docker image, derived from components developed
+in separate Git repositories and distributed via Ubuntu .deb packages
+in <https://github.com/probcomp/packaging>.
+
+To use, pick a directory where you want notebooks to go, say
+/path/to/notebooks -- perhaps under your home directory on your
+laptop, or perhaps the mount point of an Elastic Block Store on your
+Amazon EC2 instance:
+
+% docker build -t probcomp/stack:20170503-0 -f docker/ubuntu1604 .
+% mkdir /path/to/notebooks
+% docker run --rm --publish 127.0.0.1:8080:8080/tcp \
+    -v /path/to/notebooks:/notebook \
+    probcomp/stack:20170503-0
+
+Then point a web browser at
+
+http://127.0.0.1:8080/
+
+(Beware: All other processes in the system with access to the TCP/IP
+stack, including those running with credentials other than yours, can
+reach your jupyter notebook.)
+
+Dockerfiles available:
+
+docker/ubuntu1604
+        Ubuntu 16.04 with system packages and probcomp stack
+
+docker/ubuntu1604-jupyter
+        Ubuntu 16.04 with system packages, probcomp stack, and pypi jupyter
+
+The version of jupyter on pypi is newer than the version of ipython
+notebook in Ubuntu 16.04, but the level of QA and reliability on any
+particular base system such as Ubuntu 16.04 is unpredictable.

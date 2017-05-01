@@ -1,0 +1,38 @@
+FROM            ubuntu:16.04
+MAINTAINER      MIT Probabilistic Computing Project
+
+RUN             apt-get update -qq && \
+                apt-get install -qq \
+                        lsb-release \
+                        wget \
+                        ; # end of preliminary packages
+
+RUN             \
+  wget http://probcomp.csail.mit.edu/ubuntu-prerelease/probcomp-ubuntu.asc
+RUN             \
+  echo 127cbe9d37b8944033d61f9416e2a540384136ed4b6a6a431eeee78fe3555308 \
+    probcomp-ubuntu.asc \
+  | sha256sum -c
+RUN             apt-key add probcomp-ubuntu.asc
+RUN             \
+  echo deb http://probcomp.csail.mit.edu/ubuntu-prerelease \
+    $(lsb_release -s -c) main \
+  | tee /etc/apt/sources.list.d/probcomp.list
+RUN             apt-get update -qq && \
+                apt-get install -qq \
+                        ipython-notebook \
+                        probcomp-ubuntu-keyring \
+                        python-bayeslite \
+                        python-cgpm \
+                        python-crosscat \
+                        python-iventure \
+                        python-pytest \
+                        python-venture \
+                        ; # end of probcomp packages
+
+RUN             mkdir /notebook
+
+EXPOSE          8080
+CMD             \
+  cd /notebook && \
+  ipython notebook --ip='*' --port=8080 --no-browser --NotebookApp.token=
