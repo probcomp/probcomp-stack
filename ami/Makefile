@@ -437,6 +437,7 @@ clean-instances: .PHONY
 known_hosts: instance.json
 	-rm -f $@.tmp
 	instance_id=`jq -r .InstanceId < instance.json` && \
+	ip_addr=`jq -r .PublicIpAddress < instance.json` && \
 	sh conswait.sh \
 		$(AWSCLI) ec2 get-console-output \
 		--instance-id "$$instance_id" && \
@@ -444,7 +445,7 @@ known_hosts: instance.json
 		--instance-id "$$instance_id" \
 		| jq -r .Output \
 		| tr -d '\r' \
-		| awk -v hostname=`jq -r '.PublicIpAddress' < instance.json` \
+		| awk -v hostname="$$ip_addr" \
 			'/^-----BEGIN SSH HOST KEY KEYS-----$$/,/^-----END SSH HOST KEY KEYS-----$$/ { print hostname, $$1, $$2 }' \
 		| tail -n +2 | head -n -1 \
 		> $@.tmp
