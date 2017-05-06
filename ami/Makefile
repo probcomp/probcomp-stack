@@ -519,8 +519,11 @@ clean-amis: .PHONY
 		done
 	-rm -f ami.json
 
-ami: .PHONY
-ami: ami.json
+ami.stamp: ami.json
 	image_id=`jq -r .ImageId < ami.json` && \
 	sh amiwait.sh \
 		$(AWSCLI) ec2 describe-images --image-ids "$$image_id"
+	touch $@
+
+ami: .PHONY
+ami: ami.stamp
