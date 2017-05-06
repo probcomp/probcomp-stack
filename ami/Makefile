@@ -527,3 +527,104 @@ ami.stamp: ami.json
 
 ami: .PHONY
 ami: ami.stamp
+
+###############################################################################
+# Test instance
+
+TEST_INSTANCE_TYPE = $(INSTANCE_TYPE)
+TEST_HOSTNAME = please.set.me.to.something.example.com
+
+# XXX Can't tag address allocations??
+test-address.json:
+	-rm -f $@.tmp
+	$(AWSCLI) ec2 allocate-address --domain vpc > $@.tmp
+	mv -f $@.tmp $@
+
+release-test-address: .PHONY
+	if addr_id=`jq -r .AllocationId < $@.tmp`; then \
+		$(AWSCLI) ec2 release-address --allocation-id "$$addr_id"; \
+	done
+	-rm -f test-address.json
+
+test-res.json: ami.stamp
+	-rm -f $@.tmp
+	image_id=`jq -r .ImageId < ami.json` && \
+	secgroup_id=`jq -r .GroupId < secgroup.json` && \
+	subnet_id=`jq -r .Subnet.SubnetId < subnet.json` && \
+	$(AWSCLI) ec2 run-instances \
+		--count 1 \
+		--image-id "$$image_id" \
+		--instance-type $(TEST_INSTANCE_TYPE) \
+		--key-name $(KEY_NAME) \
+		--security-group-ids "$$secgroup_id" \
+		--subnet-id "$$subnet_id" \
+		> $@.tmp
+	instance_id=`jq -r .Instances[].InstanceId < $@.tmp` && \
+	$(TAG_PROJECT) "$$instance_id" && \
+	mv -f $@.tmp $@
+
+test-assoc.json: test-address.json
+test-assoc.json: test-instance.json
+	-rm -f $@.tmp
+	addr_id=`jq -r .AllocationId < test-address.json` && \
+	instance_id=`jq -r .Instances[].InstanceId < test-res.json` && \
+	$(AWSCLI) ec2 associate-address \
+		--allocation-id "$$addr_id" \
+		--instance-id "$$instance_id" \
+		> $@.tmp
+	mv -f $@.tmp $@
+
+test-instance.json: test-res.json
+	-rm -f $@.tmp
+	instance_ids=`jq -r '.Instances[].InstanceId' < test-res.json` && \
+	sh bootwait.sh \
+		$(AWSCLI) ec2 describe-instance-status \
+			--instance-ids $$instance_ids \
+			&& \
+	$(AWSCLI) ec2 describe-instances \
+		--instance-ids $$instance_ids \
+		| jq '.Reservations[0].Instances[0]' > $@.tmp
+	mv -f $@.tmp $@
+
+test-known_hosts: test-address.json
+test-known_hosts: test-res.json
+	-rm -f $@.tmp
+	instance_id=`jq -r .InstanceId < test-instance.json` && \
+	ip_addr=`jq -r .PublicIp < test-address.json` && \
+	sh conswait.sh \
+		$(AWSCLI) ec2 get-console-output \
+		--instance-id "$$instance_id" && \
+	$(AWSCLI) ec2 get-console-output \
+		--instance-id "$$instance_id" \
+		| jq -r .Output \
+		| tr -d '\r' \
+		| awk -v hostname=$(TEST_HOSTNAME) -v ip_addr="$$ip_addr" \
+			'/^-----BEGIN SSH HOST KEY KEYS-----$$/,/^-----END SSH HOST KEY KEYS-----$$/ { print hostname "," ip_addr, $$1, $$2 }' \
+		| tail -n +2 | head -n -1 \
+		> $@.tmp
+	mv -f $@.tmp $@
+
+test-start: .PHONY
+	instance_ids=`jq -r '.Instances[].InstanceId' < test-res.json` && \
+	$(AWSCLI) ec2 start-instances --instance-ids $$instance_ids
+
+test-resize: .PHONY
+	instance_ids=`jq -r '.Instances[].InstanceId' < test-res.json` && \
+	for instance_id in $$instance_ids; do \
+		$(AWSCLI) ec2 modify-instance-attribute \
+			--instance-id "$$instance_id" \
+			--instance-type $(TEST_INSTANCE_TYPE) \
+		; \
+	done
+
+test-stop: .PHONY
+	instance_ids=`jq -r '.Instances[].InstanceId' < test-res.json` && \
+	$(AWSCLI) ec2 stop-instances --instance-ids $$instance_ids
+
+test-status: .PHONY
+	instance_ids=`jq -r '.Instances[].InstanceId' < test-res.json` && \
+	$(AWSCLI) ec2 describe-instance-status --instance-ids $$instance_ids
+
+test-describe: .PHONY
+	instance_ids=`jq -r '.Instances[].InstanceId' < test-res.json` && \
+	$(AWSCLI) ec2 describe-instances --instance-ids $$instance_ids
