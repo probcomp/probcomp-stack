@@ -31,10 +31,7 @@ Parameters:
   Hostname:
     Description: Unqualified name of host
     Type: String
-  ZoneId:
-    Description: Id of hosted zone in which host will live
-    Type: String
-  ZoneName:
+  Zone:
     Description: Name of hosted zone in which host will live
     Type: String
 
@@ -227,15 +224,15 @@ Resources:
     Type: AWS::Route53::RecordSetGroup
     Properties:
       Comment: !Sub DNS records for ${Name}
-      HostedZoneId: !Ref ZoneId
+      HostedZoneName: !Ref Zone
       RecordSets:
-        - Name: !Sub ${Hostname}.${ZoneName}
+        - Name: !Sub ${Hostname}.${Zone}
           AliasTarget:
             DNSName: !GetAtt LoadBalancer.DNSName
-            HostedZoneId: !Ref ZoneId
+            HostedZoneId: !GetAtt LoadBalancer.CanonicalHostedZoneID
           Type: A
-        - Name: !Sub ssh.${Hostname}.${ZoneName}
-          AliasTarget:
-            DNSName: !GetAtt Instance.PublicDnsName
-            HostedZoneId: !Ref ZoneId
+        - Name: !Sub ssh.${Hostname}.${Zone}
+          ResourceRecords:
+            - !GetAtt Instance.PublicIp
+          TTL: 300
           Type: A
