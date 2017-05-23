@@ -112,7 +112,7 @@ Resources:
     Properties:
       VpcId: !Ref VPC
       CidrBlock: !Ref BacknetCIDR
-      MapPublicIpOnLaunch: false
+      MapPublicIpOnLaunch: true
       Tags:
         - Key: Name
           Value: !Sub ${Name}/backnet
