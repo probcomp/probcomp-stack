@@ -194,9 +194,6 @@ Resources:
       LoadBalancerArn: !Ref LoadBalancer
       Port: 443
       Protocol: "HTTPS"
-      Tags:
-        - Key: Name
-          Value: !Sub ${Name}/lb/listener
   LBTargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
