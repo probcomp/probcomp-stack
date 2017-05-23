@@ -6,16 +6,16 @@ Parameters:
     Description: CIDR block for VPC IP address range
     Type: String
     Default: 10.0.0.0/16
-  PrivnetCIDR:
-    Description: CIDR block for private subnet
+  BacknetCIDR:
+    Description: CIDR block for back end subnet
     Type: String
     Default: 10.0.0.0/24
-  Pubnet1CIDR:
-    Description: CIDR block for public subnet in first availability zone
+  Frontnet1CIDR:
+    Description: CIDR block for front end subnet in first availability zone
     Type: String
     Default: 10.0.1.0/24
-  Pubnet2CIDR:
-    Description: CIDR block for public subnet in second availability zone
+  Frontnet2CIDR:
+    Description: CIDR block for front end subnet in second availability zone
     Type: String
     Default: 10.0.2.0/24
   InstanceType:
@@ -60,83 +60,83 @@ Resources:
       InternetGatewayId: !Ref InternetGateway
       VpcId: !Ref VPC
 
-  Pubnet1:
+  Frontnet1:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref VPC
       AvailabilityZone: !Select [ 0, !GetAZs ]
-      CidrBlock: !Ref Pubnet1CIDR
+      CidrBlock: !Ref Frontnet1CIDR
       MapPublicIpOnLaunch: true
       Tags:
         - Key: Name
-          Value: !Sub ${Name}/az1/pubnet
-  Pubnet2:
+          Value: !Sub ${Name}/az1/Frontnet
+  Frontnet2:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref VPC
       AvailabilityZone: !Select [ 1, !GetAZs ]
-      CidrBlock: !Ref Pubnet2CIDR
+      CidrBlock: !Ref Frontnet2CIDR
       MapPublicIpOnLaunch: true
       Tags:
         - Key: Name
-          Value: !Sub ${Name}/az2/pubnet
+          Value: !Sub ${Name}/az2/Frontnet
 
-  PubnetRoutetab:
+  FrontnetRoutetab:
     Type: AWS::EC2::RouteTable
     Properties:
       VpcId: !Ref VPC
       Tags:
         - Key: Name
           Value: !Sub ${Name}/pubroutetab
-  PubnetDefaultRoute:
+  FrontnetDefaultRoute:
     Type: AWS::EC2::Route
     DependsOn: InternetGatewayAttachment
     Properties:
-      RouteTableId: !Ref PubnetRoutetab
+      RouteTableId: !Ref FrontnetRoutetab
       DestinationCidrBlock: 0.0.0.0/0
       GatewayId: !Ref InternetGateway
-  Pubnet1RoutetabAssoc:
+  Frontnet1RoutetabAssoc:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
-      RouteTableId: !Ref PubnetRoutetab
-      SubnetId: !Ref Pubnet1
-  Pubnet2RoutetabAssoc:
+      RouteTableId: !Ref FrontnetRoutetab
+      SubnetId: !Ref Frontnet1
+  Frontnet2RoutetabAssoc:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
-      RouteTableId: !Ref PubnetRoutetab
-      SubnetId: !Ref Pubnet2
+      RouteTableId: !Ref FrontnetRoutetab
+      SubnetId: !Ref Frontnet2
 
-  # Private subnet
-  Privnet:
+  # Back End subnet
+  Backnet:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref VPC
-      CidrBlock: !Ref PrivnetCIDR
+      CidrBlock: !Ref BacknetCIDR
       MapPublicIpOnLaunch: false
       Tags:
         - Key: Name
-          Value: !Sub ${Name}/privnet
-  PrivnetRoutetab:
+          Value: !Sub ${Name}/backnet
+  BacknetRoutetab:
     Type: AWS::EC2::RouteTable
     Properties:
       VpcId: !Ref VPC
       Tags:
         - Key: Name
           Value: !Sub ${Name}/privroutetab
-  PrivnetDefaultRoute:
+  BacknetDefaultRoute:
     Type: AWS::EC2::Route
     DependsOn: InternetGatewayAttachment
     Properties:
-      RouteTableId: !Ref PrivnetRoutetab
+      RouteTableId: !Ref BacknetRoutetab
       DestinationCidrBlock: 0.0.0.0/0
       GatewayId: !Ref InternetGateway
-  PrivnetRoutetabAssoc:
+  BacknetRoutetabAssoc:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
-      RouteTableId: !Ref PrivnetRoutetab
-      SubnetId: !Ref Privnet
+      RouteTableId: !Ref BacknetRoutetab
+      SubnetId: !Ref Backnet
 
-  # Private EC2 instance
+  # Back end EC2 instance
   Instance:
     Type: AWS::EC2::Instance
     DependsOn: BackSecgroup
@@ -146,7 +146,7 @@ Resources:
         - !Ref BackSecgroup
       KeyName: !Ref KeyName
       ImageId: !FindInMap [AWSRegionToAMI, !Ref "AWS::Region", AMI]
-      SubnetId: !Ref Privnet
+      SubnetId: !Ref Backnet
   BackSecgroup:
     Type: AWS::EC2::SecurityGroup
     DependsOn: FrontSecgroup
@@ -170,7 +170,7 @@ Resources:
         - Key: Name
           Value: !Sub ${Name}/secgroup/front
 
-  # Public load balancer
+  # Front end load balancer
   LoadBalancer:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
@@ -178,8 +178,8 @@ Resources:
       SecurityGroups:
         - !Ref FrontSecgroup
       Subnets:
-        - !Ref Pubnet1
-        - !Ref Pubnet2
+        - !Ref Frontnet1
+        - !Ref Frontnet2
       Tags:
         - Key: Name
           Value: !Sub ${Name}/lb/load-balancer
