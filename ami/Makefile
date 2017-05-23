@@ -534,6 +534,10 @@ ami: ami.stamp
 TEST_INSTANCE_TYPE = $(INSTANCE_TYPE)
 TEST_HOSTNAME = please.set.me.to.something.example.com
 
+test: .PHONY
+test: test-assoc.json
+test: test-known_hosts
+
 # XXX Can't tag address allocations??
 test-address.json:
 	-rm -f $@.tmp
@@ -559,15 +563,18 @@ test-res.json: ami.stamp
 		--security-group-ids "$$secgroup_id" \
 		--subnet-id "$$subnet_id" \
 		> $@.tmp
-	instance_id=`jq -r .Instances[].InstanceId < $@.tmp` && \
-	$(TAG_PROJECT) "$$instance_id" && \
+	instance_ids=`jq -r '.Instances[].InstanceId' < $@.tmp` && \
+	$(TAG_PROJECT) $$instance_ids && \
+	$(AWSCLI) ec2 create-tags \
+		--tags Key=Name,Value=$(PROJECT)-test \
+		--resources $$instance_ids
 	mv -f $@.tmp $@
 
 test-assoc.json: test-address.json
 test-assoc.json: test-instance.json
 	-rm -f $@.tmp
 	addr_id=`jq -r .AllocationId < test-address.json` && \
-	instance_id=`jq -r .Instances[].InstanceId < test-res.json` && \
+	instance_id=`jq -r '.Instances[].InstanceId' < test-res.json` && \
 	$(AWSCLI) ec2 associate-address \
 		--allocation-id "$$addr_id" \
 		--instance-id "$$instance_id" \
@@ -587,7 +594,7 @@ test-instance.json: test-res.json
 	mv -f $@.tmp $@
 
 test-known_hosts: test-address.json
-test-known_hosts: test-res.json
+test-known_hosts: test-instance.json
 	-rm -f $@.tmp
 	instance_id=`jq -r .InstanceId < test-instance.json` && \
 	ip_addr=`jq -r .PublicIp < test-address.json` && \
