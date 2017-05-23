@@ -1,0 +1,237 @@
+Parameters:
+  Name:
+    Description: Name of all resources
+    Type: String
+  VpcCIDR:
+    Description: CIDR block for VPC IP address range
+    Type: String
+    Default: 10.0.0.0/16
+  PrivnetCIDR:
+    Description: CIDR block for private subnet
+    Type: String
+    Default: 10.0.0.0/24
+  Pubnet1CIDR:
+    Description: CIDR block for public subnet in first availability zone
+    Type: String
+    Default: 10.0.1.0/24
+  Pubnet2CIDR:
+    Description: CIDR block for public subnet in second availability zone
+    Type: String
+    Default: 10.0.2.0/24
+  InstanceType:
+    Description: EC2 machine instance type
+    Type: String
+    Default: t2.micro
+  KeyName:
+    Description: ssh key name for EC2 instance
+    Type: AWS::EC2::KeyPair::KeyName
+  CertificateArn:
+    Description: ARN of HTTPS certificate
+    Type: String
+  Hostname:
+    Description: Unqualified name of host
+    Type: String
+  Zone:
+    Description: Name of hosted zone in which host will live
+    Type: String
+
+Mappings:
+  AWSRegionToAMI:
+    us-east-1:
+      AMI: ami-7385ec65
+
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref VpcCIDR
+      Tags:
+        - Key: Name
+          Value: !Sub ${Name}/vpc
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Sub ${Name}/gateway
+  InternetGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId: !Ref InternetGateway
+      VpcId: !Ref VPC
+
+  Pubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: !Select [ 0, !GetAZs ]
+      CidrBlock: !Ref Pubnet1CIDR
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: !Sub ${Name}/az1/pubnet
+  Pubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: !Select [ 1, !GetAZs ]
+      CidrBlock: !Ref Pubnet2CIDR
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: !Sub ${Name}/az2/pubnet
+
+  PubnetRoutetab:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: !Sub ${Name}/pubroutetab
+  PubnetDefaultRoute:
+    Type: AWS::EC2::Route
+    DependsOn: InternetGatewayAttachment
+    Properties:
+      RouteTableId: !Ref PubnetRoutetab
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+  Pubnet1RoutetabAssoc:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref PubnetRoutetab
+      SubnetId: !Ref Pubnet1
+  Pubnet2RoutetabAssoc:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref PubnetRoutetab
+      SubnetId: !Ref Pubnet2
+
+  # Private subnet
+  Privnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: !Ref PrivnetCIDR
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: Name
+          Value: !Sub ${Name}/privnet
+  PrivnetRoutetab:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: !Sub ${Name}/privroutetab
+  PrivnetDefaultRoute:
+    Type: AWS::EC2::Route
+    DependsOn: InternetGatewayAttachment
+    Properties:
+      RouteTableId: !Ref PrivnetRoutetab
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+  PrivnetRoutetabAssoc:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref PrivnetRoutetab
+      SubnetId: !Ref Privnet
+
+  # Private EC2 instance
+  Instance:
+    Type: AWS::EC2::Instance
+    DependsOn: BackSecgroup
+    Properties:
+      InstanceType: !Ref InstanceType
+      SecurityGroupIds:
+        - !Ref BackSecgroup
+      KeyName: !Ref KeyName
+      ImageId: !FindInMap [AWSRegionToAMI, !Ref "AWS::Region", AMI]
+      SubnetId: !Ref Privnet
+  BackSecgroup:
+    Type: AWS::EC2::SecurityGroup
+    DependsOn: FrontSecgroup
+    Properties:
+      VpcId: !Ref VPC
+      GroupDescription: Back end security group
+      SecurityGroupIngress:
+        - SourceSecurityGroupId: !Ref FrontSecgroup
+          IpProtocol: tcp
+          FromPort: 8888
+          ToPort: 8888
+        - CidrIp: 0.0.0.0/0
+          IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+        - CidrIp: 0.0.0.0/0
+          IpProtocol: icmp
+          FromPort: -1
+          ToPort: -1
+      Tags:
+        - Key: Name
+          Value: !Sub ${Name}/secgroup/front
+
+  # Public load balancer
+  LoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Scheme: internet-facing
+      SecurityGroups:
+        - !Ref FrontSecgroup
+      Subnets:
+        - !Ref Pubnet1
+        - !Ref Pubnet2
+      Tags:
+        - Key: Name
+          Value: !Sub ${Name}/lb/load-balancer
+  LBListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      Certificates:
+        - CertificateArn: !Ref CertificateArn
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref LBTargetGroup
+      LoadBalancerArn: !Ref LoadBalancer
+      Port: 443
+      Protocol: "HTTPS"
+      Tags:
+        - Key: Name
+          Value: !Sub ${Name}/lb/listener
+  LBTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Port: 8888
+      Protocol: "HTTP"
+      Targets:
+        - Id: !Ref Instance
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: !Sub ${Name}/lb/tg
+  FrontSecgroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      VpcId: !Ref VPC
+      GroupDescription: Front end security group
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+      Tags:
+        - Key: Name
+          Value: !Sub ${Name}/secgroup/front
+
+  # DNS records
+  DNS:
+    Type: AWS::Route53::RecordSetGroup
+    Properties:
+      Comment: !Sub DNS records for ${Name}
+      HostedZoneName: !Ref Zone
+      RecordSets:
+        - Name: !Sub ${Hostname}.${Zone}
+          AliasTarget: !GetAtt LoadBalancer.DNSName
+          Type: A
+        - Name: !Sub ssh.${Hostname}.${Zone}
+          AliasTarget: !GetAtt Instance.PublicDnsName
+          Type: A
