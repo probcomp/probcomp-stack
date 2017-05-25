@@ -50,7 +50,9 @@ Choose:
 Run
 
 ```
-aws cloudformation create-stack --template-body file://path/to/aws/stack.yaml \
+aws cloudformation create-stack \
+    --stack-name probcomp/stack/<user> \
+    --template-body file://path/to/aws/stack.yaml \
     --parameters ParameterKey=Name,ParameterValue=<user> \
     --parameters ParameterKey=InstanceType,ParameterValue=<instance> \
     --parameters ParameterKey=KeyName,ParameterValue=<key> \
@@ -66,7 +68,6 @@ using `scp` or `rsync`.
 
 ### Change the instance type for a user
 
-TODO Will this actually work to update the stack rather than create a fresh one?
 - Run `aws cloudformation update-stack` with the same arguments as above, except with the new instance type.
 
 May also need to manually restart the jupyter server, if Issue #3 is
@@ -74,7 +75,7 @@ not fixed yet.
 
 ### Terminate a user's instance
 
-Run `aws cloudformation delete-stack --stack-name <name>`
+Run `aws cloudformation delete-stack --stack-name probcomp/stack/<user>`
 
 ### SSH into the instance
 
