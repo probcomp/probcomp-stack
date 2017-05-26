@@ -56,11 +56,11 @@ aws cloudformation create-stack \
     --stack-name probcomp/stack/<user> \
     --template-body file://path/to/aws/stack.yaml \
     --parameters ParameterKey=Name,ParameterValue=<user> \
-    --parameters ParameterKey=InstanceType,ParameterValue=<instance> \
-    --parameters ParameterKey=KeyName,ParameterValue=<key> \
-    --parameters ParameterKey=CertificateArn,ParameterValue=arn:aws:acm:us-east-1:590421120965:certificate/f3ac3e7b-b8fd-4bb8-9bb7-c2f9299c9233 \
-    --parameters ParameterKey=Hostname,ParameterValue=<user>.stack \
-    --parameters ParameterKey=Zone,ParameterValue=probcomp.net.
+      ParameterKey=InstanceType,ParameterValue=<instance> \
+      ParameterKey=KeyName,ParameterValue=<key> \
+      ParameterKey=CertificateArn,ParameterValue=arn:aws:acm:us-east-1:590421120965:certificate/f3ac3e7b-b8fd-4bb8-9bb7-c2f9299c9233 \
+      ParameterKey=Hostname,ParameterValue=<user>.stack \
+      ParameterKey=Zone,ParameterValue=probcomp.net.
 ```
 
 If Issue #4 is not fixed, manually set the Jupyter notebook password
