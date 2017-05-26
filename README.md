@@ -55,7 +55,7 @@ Run
 ```
 aws cloudformation create-stack \
     --stack-name probcomp-stack-<user> \
-    --template-body file://path/to/aws/stack.yaml \
+    --template-body file://aws/stack.yaml \
     --parameters ParameterKey=Name,ParameterValue=<user> \
       ParameterKey=InstanceType,ParameterValue=<instance> \
       ParameterKey=KeyName,ParameterValue=<key> \
