@@ -78,6 +78,8 @@ using `scp` or `rsync`.
 
 - Run `aws cloudformation update-stack` with the same arguments as above, except with the new instance type.
 
+The command returns quickly, but the actual update can take about 3 minutes.
+
 May also need to manually restart the jupyter server, if Issue #3 is
 not fixed yet.
 
