@@ -69,10 +69,13 @@ The command returns quickly, but the actual creation takes about 5 minutes.
 If something goes wrong (which will be silent), the CloudFormation
 section of the AWS console is helpful.
 
-If Issue #4 is not fixed, manually set the Jupyter notebook password
+If Issue #4 is not fixed, manually set the Jupyter notebook password as below
+
+If Issue #3 is not fixed, manually start the Jupyter server
 
 Install the initial content from the `workshop-materials` repository
 using `scp` or `rsync`.
+- The server's document root should be `notebook`
 
 ### Change the instance type for a user
 
@@ -91,7 +94,7 @@ Run `aws cloudformation delete-stack --stack-name probcomp-stack-<user>`
 
 - Get the instance's ssh host key by running
 
-   ./aws/hostkey.sh probcomp-stack-<user> <user>.stack.probcomp.net > known_hosts
+   ./aws/hostkey.sh probcomp-stack-<user> ssh.<user>.stack.probcomp.net >> known_hosts
 
   (this will silently leave a blank known_hosts file if the instance
   hasn't finished booting yet.)
@@ -100,8 +103,19 @@ Run `aws cloudformation delete-stack --stack-name probcomp-stack-<user>`
 
 ### Change a user's Jupyter notebook password
 
-- SSH into the instance and run `jupyter notebook password` interactively,
-  and/or see solution to Issue #4
+- SSH into the instance
+- activate the virtual environment `venv`
+- `jupyter notebook password`
+
+Or see solution to Issue #4
+
+### Restart a user's Jupyter notebook server, if needed
+
+- ssh into the instance with command
+- activate the virtual env `venv`
+- `cd notebook`
+- `nohup jupyter notebook --no-browser --ip=\* > $HOME/jupyter.nohup.out` &
+- logout
 
 Deploying locally in Docker
 ---------------------------
