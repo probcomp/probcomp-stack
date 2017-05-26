@@ -111,6 +111,7 @@ Resources:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref VPC
+      AvailabilityZone: !Select [ 1, !GetAZs ]
       CidrBlock: !Ref BacknetCIDR
       MapPublicIpOnLaunch: true
       Tags:
@@ -141,6 +142,7 @@ Resources:
     Type: AWS::EC2::Instance
     DependsOn: BackSecgroup
     Properties:
+      AvailabilityZone: !Select [ 1, !GetAZs ]
       InstanceType: !Ref InstanceType
       SecurityGroupIds:
         - !Ref BackSecgroup
