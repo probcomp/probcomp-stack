@@ -63,6 +63,9 @@ aws cloudformation create-stack \
       ParameterKey=Zone,ParameterValue=probcomp.net.
 ```
 
+If something goes wrong, the CloudFormation section of the AWS console
+is helpful.
+
 If Issue #4 is not fixed, manually set the Jupyter notebook password
 
 Install the initial content from the `workshop-materials` repository
