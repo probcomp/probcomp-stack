@@ -25,8 +25,9 @@ Deploying on and managing isolated EC2 instances
 - Installed AWS command-line interface `aws`, and `jq`.
 
 - AWS credentials authorized to manipulate EC2 resources and use
-  CloudFormation.  For instance, the `EC2FullAccess` and
-  `ProbcompCloudFormationFullAccess` policies suffice.
+  CloudFormation.  For instance, the `AmazonEC2FullAccess`,
+  `AmazonRoute53FullAccess`, and `ProbcompCloudFormationFullAccess`
+  policies suffice.
 
 - SSH keypair the instances will trust, uploaded to AWS
   (e.g., `bch20170503-ec2.pem`, or you can make your own).
