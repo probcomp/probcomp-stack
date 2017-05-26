@@ -22,6 +22,8 @@ Deploying on and managing isolated EC2 instances
 
 ### Prerequisites
 
+- Installed AWS command-line interface `aws`, and `jq`.
+
 - AWS credentials authorized to manipulate EC2 resources and use
   CloudFormation.  For instance, the `EC2FullAccess` and
   `ProbcompCloudFormationFullAccess` policies suffice.
