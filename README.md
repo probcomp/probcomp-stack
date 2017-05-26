@@ -83,7 +83,7 @@ Run `aws cloudformation delete-stack --stack-name probcomp-stack-<user>`
 
 - Get the instance's ssh host key by running
 
-   ./hostkey.sh probcomp-stack-<user> <user>.stack.probcomp.net > known_hosts
+   ./aws/hostkey.sh probcomp-stack-<user> <user>.stack.probcomp.net > known_hosts
 
 - ssh -i <private-key> -o userknownhostsfile=./known_hosts ubuntu@ssh.<user>.stack.probcomp.net
 
