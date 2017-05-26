@@ -53,7 +53,7 @@ Run
 
 ```
 aws cloudformation create-stack \
-    --stack-name probcomp/stack/<user> \
+    --stack-name probcomp-stack-<user> \
     --template-body file://path/to/aws/stack.yaml \
     --parameters ParameterKey=Name,ParameterValue=<user> \
       ParameterKey=InstanceType,ParameterValue=<instance> \
@@ -77,7 +77,7 @@ not fixed yet.
 
 ### Terminate a user's instance
 
-Run `aws cloudformation delete-stack --stack-name probcomp/stack/<user>`
+Run `aws cloudformation delete-stack --stack-name probcomp-stack-<user>`
 
 ### SSH into the instance
 
