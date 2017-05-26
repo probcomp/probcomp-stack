@@ -64,8 +64,10 @@ aws cloudformation create-stack \
       ParameterKey=Zone,ParameterValue=probcomp.net.
 ```
 
-If something goes wrong, the CloudFormation section of the AWS console
-is helpful.
+The command returns quickly, but the actual creation takes about 5 minutes.
+
+If something goes wrong (which will be silent), the CloudFormation
+section of the AWS console is helpful.
 
 If Issue #4 is not fixed, manually set the Jupyter notebook password
 
