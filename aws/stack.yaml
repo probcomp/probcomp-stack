@@ -38,7 +38,7 @@ Parameters:
 Mappings:
   AWSRegionToAMI:
     us-east-1:
-      AMI: ami-7385ec65
+      AMI: ami-0f6b2119
 
 Resources:
   VPC:

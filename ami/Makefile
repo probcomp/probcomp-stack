@@ -486,7 +486,7 @@ clean-setup.stamp: .PHONY
 # AMI_NAME
 #       Name of the resulting AMI.
 
-AMI_REV = 0
+AMI_REV = 1
 AMI_NAME = probcomp/images-testing/$(PROJECT)-$(AMI_REV)
 
 ami.json: reservation.json
