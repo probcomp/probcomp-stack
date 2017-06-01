@@ -117,7 +117,7 @@ Or see solution to Issue #4
 - ssh into the instance with command
 - activate the virtual env `venv`
 - `cd notebook`
-- `nohup jupyter notebook --no-browser --ip=\* > $HOME/jupyter.nohup.out` &
+- `nohup jupyter notebook --no-browser --ip=\* > $HOME/jupyter.nohup.out &`
 - logout
 
 Deploying locally in Docker
