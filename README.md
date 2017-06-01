@@ -99,7 +99,10 @@ Run `aws cloudformation delete-stack --stack-name probcomp-stack-<user>`
   (this will silently leave a blank known_hosts file if the instance
   hasn't finished booting yet.)
 
-- ssh -i <private-key> -o userknownhostsfile=./known_hosts ubuntu@ssh.<user>.stack.probcomp.net
+- `login.sh <user>`
+  which runs
+  `ssh -i <private-key> -o UserKnownHostsFile=./known_hosts -o CheckHostIP=no ubuntu@ssh.<user>.stack.probcomp.net`
+  with the default key (namely, bch20170503-ec2.pem)
 
 ### Change a user's Jupyter notebook password
 
