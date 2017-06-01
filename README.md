@@ -69,13 +69,19 @@ The command returns quickly, but the actual creation takes about 5 minutes.
 If something goes wrong (which will be silent), the CloudFormation
 section of the AWS console is helpful.
 
-If Issue #4 is not fixed, manually set the Jupyter notebook password as below
-
-If Issue #3 is not fixed, manually start the Jupyter server
-
-Install the initial content from the `workshop-materials` repository
-using `scp` or `rsync`.
-- The server's document root should be `notebook`
+Then, log in to the instance and do the following things:
+- `source venv/bin/activate`
+- `jupyter notebook --generate-config`
+- If Issue #4 is not fixed, manually set the Jupyter notebook password with
+  `jupyter notebook password`
+- Install the initial content from the `workshop-materials` repository
+  into the appropriate places using `scp` or `rsync`.
+  - The server's document root should be `notebook`
+  - Be sure to chmod u+w all files that were managed by git annex
+  - Don't forget the probcomp branding material, which goes into
+    `$HOME/.jupyter/custom` on the instance
+- If Issue #3 is not fixed, manually start the Jupyter server
+  - `cd notebook && nohup jupyter notebook --no-browser --NotebookApp.iopub_data_rate_limit=10000000000 --ip=\* > $HOME/jupyter.nohup.out &`
 
 ### Change the instance type for a user
 
