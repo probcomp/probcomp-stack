@@ -82,6 +82,7 @@ Then, log in to the instance and do the following things:
     `$HOME/.jupyter/custom` on the instance
 - If Issue #3 is not fixed, manually start the Jupyter server
   - `cd notebook && nohup jupyter notebook --no-browser --NotebookApp.iopub_data_rate_limit=10000000000 --ip=\* > $HOME/jupyter.nohup.out &`
+- Test it with a browser
 
 ### Change the instance type for a user
 
