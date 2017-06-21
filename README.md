@@ -127,6 +127,10 @@ Or see solution to Issue #4
 - `nohup jupyter notebook --no-browser --ip=\* > $HOME/jupyter.nohup.out &`
 - logout
 
+### Visit the Jupyter notebook server
+
+https://<user>.stack.probcomp.net/
+
 Deploying locally in Docker
 ---------------------------
 
