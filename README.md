@@ -149,7 +149,7 @@ third attempt on May 3rd 2017.
 Run:
 
 ```
-% docker build -t probcomp/stack:20170503-0 -f docker/ubuntu1604 .
+% docker build -t probcomp/stack:20170503-0 -f docker/ubuntu1604-jupyter .
 % mkdir /path/to/notebooks
 % docker run --rm --publish 127.0.0.1:8080:8080/tcp \
     -v /path/to/notebooks:/notebook \
