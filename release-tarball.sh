@@ -8,4 +8,6 @@ root_dirname=$(dirname "$my_abs_path")
 echo "$root_dirname"
 cd "$root_dirname"
 
-tar -hczvf probcomp-stack.tgz probcomp-stack/
+release=${1:-0.1}
+
+tar -hczvf "probcomp-stack-$release.tgz" probcomp-stack/
