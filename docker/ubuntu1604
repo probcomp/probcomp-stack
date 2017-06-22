@@ -35,4 +35,5 @@ RUN             mkdir /notebook
 EXPOSE          8080
 CMD             \
   cd /notebook && \
-  ipython notebook --ip='*' --port=8080 --no-browser --NotebookApp.token=
+  ipython notebook --ip='*' --port=8080 --no-browser --NotebookApp.token= \
+    --NotebookApp.iopub_data_rate_limit=10000000000

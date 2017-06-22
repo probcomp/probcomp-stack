@@ -40,4 +40,4 @@ CMD             \
   . /venv/bin/activate && \
   cd /notebook && \
   jupyter notebook --ip='*' --port=8080 --no-browser --NotebookApp.token= \
-    --allow-root
+    --allow-root --NotebookApp.iopub_data_rate_limit=10000000000
