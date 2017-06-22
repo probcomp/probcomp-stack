@@ -26,4 +26,3 @@ diff -u - header-1 <<EOF
 HTTP/1.1 302 Found
 HTTP/1.1 200 OK
 EOF
-
