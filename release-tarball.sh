@@ -11,3 +11,4 @@ cd "$root_dirname"
 release=${1:-0.1}
 
 tar -hczvf "probcomp-stack-$release.tgz" probcomp-stack/
+sha256sum "probcomp-stack-$release.tgz"
