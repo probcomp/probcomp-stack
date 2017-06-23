@@ -8,12 +8,12 @@ RUN             apt-get update -qq && \
                         ; # end of preliminary packages
 
 RUN             \
-  wget http://probcomp.csail.mit.edu/ubuntu-prerelease/probcomp-ubuntu-201706.asc
+  wget http://probcomp.csail.mit.edu/ubuntu-prerelease/probcomp-ubuntu-20170614.asc
 RUN             \
-  echo 66796eeb41dd271159c0d1983df902c5c803fba3a33c5c597716ce1c91a48432 \
-    probcomp-ubuntu-201706.asc \
+  echo fbdb2138c27e286e21ba6eea60061c96de7d73daefae930a6d3f7b630acd199e \
+    probcomp-ubuntu-20170614.asc \
   | sha256sum -c
-RUN             apt-key add probcomp-ubuntu-201706.asc
+RUN             apt-key add probcomp-ubuntu-20170614.asc
 RUN             \
   echo deb http://probcomp.csail.mit.edu/ubuntu-prerelease \
     $(lsb_release -s -c) main \
