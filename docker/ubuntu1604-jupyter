@@ -39,6 +39,9 @@ RUN             mkdir /notebook
 EXPOSE          8080
 CMD             \
   . /venv/bin/activate && \
+  jupyter notebook --generate-config --allow-root && \
+  mkdir -p /branding && \
+  cp -r /branding ~/.jupyter/custom && \
   cd /notebook && \
   jupyter notebook --ip='*' --port=8080 --no-browser --NotebookApp.token= \
     --allow-root --NotebookApp.iopub_data_rate_limit=10000000000
