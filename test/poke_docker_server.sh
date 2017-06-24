@@ -12,7 +12,7 @@ clean () {
 trap clean EXIT HUP INT TERM
 
 docker build --no-cache -t "$image_name" -f docker/ubuntu1604-jupyter docker
-docker run --rm --publish localhost:8082:8080/tcp \
+docker run --rm --publish 127.0.0.1:8082:8080/tcp \
     -v docker:/notebook \
     --name "$cont_name" \
     "$image_name" &
