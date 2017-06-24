@@ -29,6 +29,7 @@ RUN             apt-get update -qq && \
                         python-venture \
                         ; # end of probcomp packages
 
+RUN             apt-get install -qq python-seaborn
 RUN             apt-get install -qq python-virtualenv python-pip
 RUN             virtualenv --system-site-packages /venv
 RUN             . /venv/bin/activate && pip install -U 'ipython<6' jupyter

@@ -30,6 +30,8 @@ RUN             apt-get update -qq && \
                         python-venture \
                         ; # end of probcomp packages
 
+RUN             apt-get install -qq python-seaborn
+
 RUN             mkdir /notebook
 
 EXPOSE          8080

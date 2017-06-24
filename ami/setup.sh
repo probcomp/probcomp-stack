@@ -32,6 +32,7 @@ sudo apt-get install -qq python-iventure
 sudo apt-get install -qq python-pytest
 sudo apt-get install -qq python-venture
 
+sudo apt-get install -qq python-seaborn
 sudo apt-get install -qq python-pip
 sudo apt-get install -qq python-virtualenv
 virtualenv --system-site-packages ~/venv
