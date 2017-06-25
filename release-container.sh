@@ -27,5 +27,10 @@ docker build -t "probcomp/stack-release:$release" \
        release-playpen/
 
 # Export it
-docker save --output="probcomp-stack-full-$release.tar" \
-       "probcomp/stack-release:$release"
+tarball="probcomp-stack-full-$release.tar"
+docker save --output="$tarball" "probcomp/stack-release:$release"
+
+# Zip it for transport
+zipball="probcomp-stack-full-$release.zip"
+zip "$zipball" "$tarball"
+sha256sum "$zipball"
