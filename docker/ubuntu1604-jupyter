@@ -33,14 +33,14 @@ RUN             apt-get install -qq python-seaborn
 RUN             apt-get install -qq python-virtualenv python-pip
 RUN             virtualenv --system-site-packages /venv
 RUN             . /venv/bin/activate && pip install -U 'ipython<6' jupyter
+RUN             . /venv/bin/activate && jupyter notebook --generate-config --allow-root
 
 RUN             mkdir /notebook
+RUN             mkdir /branding
 
 EXPOSE          8080
 CMD             \
   . /venv/bin/activate && \
-  jupyter notebook --generate-config --allow-root && \
-  mkdir -p /branding && \
   cp -r /branding ~/.jupyter/custom && \
   cd /notebook && \
   jupyter notebook --ip='*' --port=8080 --no-browser --NotebookApp.token= \
