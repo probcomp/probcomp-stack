@@ -1,5 +1,13 @@
 #!/bin/sh
 
+# Wait for an AMI to finish being created.  The AMI is specified by
+# passing a command with the same output behavior as aws ec2
+# describe-images --image-ids <whatever> to this as arguments.  This
+# will repeatedly invoke that command, waiting for its output to
+# indicate success.
+
+# Wait up to 25 minutes.
+
 set -Ceu
 
 progname="`dirname "$0"`"

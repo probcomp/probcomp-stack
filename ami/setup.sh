@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# Initialize a probcomp stack instance from the base AMI by running on
+# that machine.  The base AMI we have been using is ami-80861296, namely
+# ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-20170414
+
 set -Ceu
 
 sudo apt-get update -qq
