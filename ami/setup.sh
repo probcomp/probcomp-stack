@@ -44,6 +44,36 @@ virtualenv --system-site-packages ~/venv
     set -Ceu
     . ~/venv/bin/activate
     pip install -U 'ipython<6' jupyter
+    rm -rf ~/.jupyter
+    jupyter notebook --generate-config
 )
 
 sudo apt-get install -qq letsencrypt
+
+mkdir -p /home/ubuntu/notebook
+
+sudo rm -f /etc/rc.local
+cat > etc-rc.local.tmp <<EOF
+#!/bin/sh
+
+set -Ceu
+
+sudo -u ubuntu /home/ubuntu/start-jupyter.sh
+
+exit 0
+EOF
+chmod 644 etc-rc.local.tmp
+sudo mv etc-rc.local.tmp /etc/rc.local
+
+rm -f start-jupyter.sh
+cat > start-jupyter.sh <<EOF
+#!/bin/sh
+
+set -Ceu
+
+cd /home/ubuntu/notebook
+. ~/venv/bin/activate
+nohup jupyter notebook --no-browser \
+  --NotebookApp.iopub_data_rate_limit=10000000000 --ip=\* \
+  > /home/ubuntu/jupyter.nohup.out &
+EOF
