@@ -69,6 +69,14 @@ case $action in
         done
         wait
         ;;
+    set-passwords)
+        for i in `seq $from $to`
+        do
+            user=$prefix-$i
+            echo "Setting the password on probcomp-stack-$user"
+            ./set-jupyter-password.sh $user oreilly-passwords/$i.passwd
+        done
+        ;;
     *)
         printf >&2 'Unknown action %s\n' "$action"
         exit 1
