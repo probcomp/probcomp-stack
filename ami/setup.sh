@@ -71,6 +71,7 @@ cat > start-jupyter.sh <<EOF
 
 set -Ceu
 
+rm -f /home/ubuntu/jupyter.nohup.out
 cd /home/ubuntu/notebook
 . ~/venv/bin/activate
 nohup jupyter notebook --no-browser \
