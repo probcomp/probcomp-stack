@@ -19,7 +19,7 @@ while [ $i -lt 100 ]; do
                    | jq -r '.Stacks[].StackStatus'`
     do
         case $status in
-        CREATE_IN_PROGRESS|DELETE_IN_PROGRESS|REVIEW_IN_PROGRESS|ROLLBACK_IN_PROGRESS|UPDATE_ROLLBACK_IN_PROGRESS)
+        CREATE_IN_PROGRESS|DELETE_IN_PROGRESS|REVIEW_IN_PROGRESS|UPDATE_IN_PROGRESS|ROLLBACK_IN_PROGRESS|UPDATE_ROLLBACK_IN_PROGRESS)
             action=wait
             reason=$status
             ;;
