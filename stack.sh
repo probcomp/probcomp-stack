@@ -22,3 +22,9 @@ aws cloudformation $action-stack \
       ParameterKey=BaseAMI,ParameterValue=$ami_id
 
 ./aws/stackwait.sh probcomp-stack-$user
+
+# Set the machine's hostname.
+
+./put.sh $user set-hostname.sh /home/ubuntu/set-hostname.sh
+./login.sh $user chmod 755 set-hostname.sh
+./login.sh $user ./set-hostname.sh $user.stack.probcomp.net
