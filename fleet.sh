@@ -57,7 +57,7 @@ case $action in
         do
             user=$prefix-$i
             echo "Collecting content on probcomp-stack-$user"
-            ./login.sh $user 'wget -O - https://probcomp-oreilly20170627.s3.amazonaws.com/content-package.tgz | gunzip -c | tar xf -'
+            ./login.sh $user 'wget --progress=dot:giga -O - https://probcomp-oreilly20170627.s3.amazonaws.com/content-package.tgz | gunzip -c | tar xf -'
         done
         ;;
     macro-install)
