@@ -2,6 +2,8 @@
 
 set -Ceu
 
+user=$1
+
 # Set the machine's hostname.
 rm -f known_hosts/$user
 ./hostkey.sh $user > known_hosts/$user
