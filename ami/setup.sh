@@ -72,7 +72,7 @@ cat > restart-jupyter.sh <<EOF
 
 set -Ceu
 
-killall jupyter-notebook
+killall jupyter-notebook || true
 rm -f /home/ubuntu/jupyter.nohup.out
 cd /home/ubuntu/notebook
 . ~/venv/bin/activate
