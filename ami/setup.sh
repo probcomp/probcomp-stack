@@ -52,7 +52,7 @@ sudo apt-get install -qq letsencrypt
 
 mkdir -p /home/ubuntu/notebook
 
-rm -f /etc/rc.local
+sudo rm -f /etc/rc.local
 cat > etc-rc.local.tmp <<EOF
 #!/bin/sh
 
