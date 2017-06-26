@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Reset the working directory to the script's path
+my_abs_path=$(readlink -f "$0")
+root_dirname=$(dirname "$my_abs_path")
+cd "$root_dirname"
+
 action=$1
 user=$2
 instance=$3
@@ -15,3 +20,5 @@ aws cloudformation $action-stack \
       ParameterKey=Hostname,ParameterValue=$user.stack \
       ParameterKey=Zone,ParameterValue=probcomp.net. \
       ParameterKey=BaseAMI,ParameterValue=$ami_id
+
+./aws/stackwait.sh probcomp-stack-$user
