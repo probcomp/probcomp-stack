@@ -21,16 +21,27 @@ case $action in
         for i in `seq $from $to`
         do
             echo "`echo ${action%e} | tr cu CU`ing probcomp-stack-oreilly-$i"
-            ./stack.sh $action $prefix-$i $instance $ami_id &
-            sleep 2
+            ./stack-start.sh $action $prefix-$i $instance $ami_id &
+            sleep 1
         done
         wait
+        for i in `seq $from $to`
+        do
+            ./aws/stackwait.sh probcomp-stack-$user || true
+            sleep 1
+        done
+        for i in `seq $from $to`
+        do
+            ./stack-finish.sh $user || true
+            sleep 1
+        done
         ;;
     delete)
         for i in `seq $from $to`
         do
             echo "Deleting probcomp-stack-oreilly-$i"
             aws cloudformation delete-stack --stack-name probcomp-stack-oreilly-$i
+            sleep 1
         done
         ;;
     *)
