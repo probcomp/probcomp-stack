@@ -7,7 +7,8 @@ except ImportError:
     from IPython.lib import passwd
 
 if len(sys.argv) > 1:
-    word = passwd(sys.argv[1])
+    with open(sys.argv[1], "r") as f:
+        word = passwd(f.readline().strip())
 else:
     word = passwd()
 

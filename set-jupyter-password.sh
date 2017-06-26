@@ -8,10 +8,10 @@ cd "$root_dirname"
 set -Ceu
 
 user=$1
-password=$2
+passwd_file=$2
 
 mkdir -p jupyter_notebook_configs
 rm -f jupyter_notebook_configs/$user.json
-ipython write-jupyter-password.py "$password" > jupyter_notebook_configs/$user.json
+ipython write-jupyter-password.py "$passwd_file" > jupyter_notebook_configs/$user.json
 ./put.sh "$user" jupyter_notebook_configs/$user.json /home/ubuntu/.jupyter/jupyter_notebook_config.json
 ./login.sh "$user" ./restart-jupyter.sh
