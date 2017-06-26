@@ -52,7 +52,7 @@ sudo apt-get install -qq letsencrypt
 
 mkdir -p /home/ubuntu/notebook
 
-sudo rm -f /etc/rc.local
+rm -f /etc/rc.local
 cat > etc-rc.local.tmp <<EOF
 #!/bin/sh
 
@@ -62,7 +62,7 @@ sudo -u ubuntu /home/ubuntu/start-jupyter.sh
 
 exit 0
 EOF
-chmod 644 etc-rc.local.tmp
+chmod 755 etc-rc.local.tmp
 sudo mv etc-rc.local.tmp /etc/rc.local
 
 rm -f start-jupyter.sh
@@ -77,3 +77,4 @@ nohup jupyter notebook --no-browser \
   --NotebookApp.iopub_data_rate_limit=10000000000 --ip=\* \
   > /home/ubuntu/jupyter.nohup.out &
 EOF
+chmod 755 start-jupyter.sh
