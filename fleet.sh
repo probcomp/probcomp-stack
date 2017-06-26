@@ -61,7 +61,7 @@ case $action in
         done
         wait
         ;;
-    macro-install)
+    marco-install)
         for i in `seq $from $to`
         do
             user=$prefix-$i
