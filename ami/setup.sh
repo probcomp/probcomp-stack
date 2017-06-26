@@ -52,25 +52,27 @@ sudo apt-get install -qq letsencrypt
 
 mkdir -p /home/ubuntu/notebook
 
+# Make sure the Jupyter server starts when the machine boots
 sudo rm -f /etc/rc.local
 cat > etc-rc.local.tmp <<EOF
 #!/bin/sh
 
 set -Ceu
 
-sudo -u ubuntu /home/ubuntu/start-jupyter.sh
+sudo -u ubuntu /home/ubuntu/restart-jupyter.sh
 
 exit 0
 EOF
 chmod 755 etc-rc.local.tmp
 sudo mv etc-rc.local.tmp /etc/rc.local
 
-rm -f start-jupyter.sh
-cat > start-jupyter.sh <<EOF
+rm -f restart-jupyter.sh
+cat > restart-jupyter.sh <<EOF
 #!/bin/sh
 
 set -Ceu
 
+killall jupyter-notebook
 rm -f /home/ubuntu/jupyter.nohup.out
 cd /home/ubuntu/notebook
 . ~/venv/bin/activate
@@ -78,4 +80,4 @@ nohup jupyter notebook --no-browser \
   --NotebookApp.iopub_data_rate_limit=10000000000 --ip=\* \
   > /home/ubuntu/jupyter.nohup.out &
 EOF
-chmod 755 start-jupyter.sh
+chmod 755 restart-jupyter.sh
