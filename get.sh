@@ -10,4 +10,4 @@ dest=$1
 shift
 
 scp -i bch20170503-ec2.pem -o userknownhostsfile=known_hosts/$user \
-  "ubuntu@ssh.$user.stack.probcomp.net:$source" "$dest" $@
+  ${1+"$@"} "ubuntu@ssh.$user.stack.probcomp.net:$source" "$dest"
