@@ -33,7 +33,7 @@ while [ $i -lt 100 ]; do
         esac
     done
     case $action in
-    wait)       echo '#' state $reason; sleep 15;;
+    wait)       echo '#' ami state $reason waiting 15 seconds; sleep 15;;
     done)       break;;
     error)      exit 1;;
     esac
