@@ -34,6 +34,16 @@ Parameters:
   Zone:
     Description: Name of hosted zone in which host will live
     Type: String
+  BaseAMI:
+    Description: AMI to start the instance from
+    Type: AWS::EC2::Image::Id
+    Default: ami-0f6b2119
+
+# I would have wanted the default AMI to be region specific,
+# indirecting through a lookup in the AWSRegionToAMI mapping,
+# but I can't figure out how to do that.  The code snippet for
+# a lookup is
+# !FindInMap [AWSRegionToAMI, !Ref "AWS::Region", AMI]
 
 Mappings:
   AWSRegionToAMI:
@@ -147,7 +157,7 @@ Resources:
       SecurityGroupIds:
         - !Ref BackSecgroup
       KeyName: !Ref KeyName
-      ImageId: !FindInMap [AWSRegionToAMI, !Ref "AWS::Region", AMI]
+      ImageId: !Ref BaseAMI
       SubnetId: !Ref Backnet
   BackSecgroup:
     Type: AWS::EC2::SecurityGroup
