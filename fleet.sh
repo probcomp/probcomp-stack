@@ -57,7 +57,8 @@ case $action in
         do
             user=$prefix-$i
             echo "Collecting content on probcomp-stack-$user"
-            (./login.sh $user 'wget --progress=dot:giga -O - https://probcomp-oreilly20170627.s3.amazonaws.com/content-package.tgz | gunzip -c | tar xf -' 2>&1 | while read line; do echo $user: $line; done) &
+            (./login.sh $user 'wget --progress=dot:giga -O - https://probcomp-oreilly20170627.s3.amazonaws.com/content-package.tgz | gunzip -c | tar xf -' 2>&1 \
+                 | while read line; do echo $user: $line; done) &
         done
         wait
         ;;
@@ -66,7 +67,8 @@ case $action in
         do
             user=$prefix-$i
             echo "Installing Marco's stuff on probcomp-stack-$user"
-            (./login.sh $user 'cd ~/gen && ./install.sh' 2>&1 | while read line; do echo $user: $line; done) &
+            (./login.sh $user 'cd ~/gen && ./install.sh' 2>&1 \
+                 | while read line; do echo $user: $line; done) &
         done
         wait
         ;;
