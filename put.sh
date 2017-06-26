@@ -9,5 +9,5 @@ shift
 dest=$1
 shift
 
-scp -i bch20170503-ec2.pem -o userknownhostsfile=known_hosts \
+scp -i bch20170503-ec2.pem -o userknownhostsfile=known_hosts.$user \
   "$source" "ubuntu@ssh.$user.stack.probcomp.net:$dest" $@
