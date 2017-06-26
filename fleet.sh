@@ -52,6 +52,23 @@ case $action in
             sleep 1
         done
         ;;
+    grab-content)
+        for i in `seq $from $to`
+        do
+            user=$prefix-$i
+            echo "Collecting content on probcomp-stack-$user"
+            ./login.sh $user 'wget -O - https://probcomp-oreilly20170627.s3.amazonaws.com/content-package.tgz | gunzip -c | tar xf -'
+        done
+        ;;
+    macro-install)
+        for i in `seq $from $to`
+        do
+            user=$prefix-$i
+            echo "Installing Marco's stuff on probcomp-stack-$user"
+            (./login.sh $user 'cd ~/gen && ./install.sh' | while read line; do echo $user: $line; done) &
+        done
+        wait
+        ;;
     *)
         printf >&2 'Unknown action %s\n' "$action"
         exit 1
