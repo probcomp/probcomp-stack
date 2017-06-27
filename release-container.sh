@@ -11,7 +11,7 @@ cd "$root_dirname"
 release=${1:-0.1}
 
 # Build the bare release container as a base
-docker build -t probcomp/base -f docker/ubuntu1604-jupyter docker
+docker build --no-cache -t probcomp/base -f docker/ubuntu1604-jupyter docker
 
 # Collect the content to release into a directory
 rm -rf release-playpen
@@ -22,7 +22,7 @@ cp "probcomp-stack-$release.zip" release-playpen
 cp docker/ubuntu1604-jupyter-full release-playpen
 
 # Build the full release container
-docker build -t "probcomp/stack-release:$release" \
+docker build --no-cache -t "probcomp/stack-release:$release" \
        -f release-playpen/ubuntu1604-jupyter-full \
        release-playpen/
 
