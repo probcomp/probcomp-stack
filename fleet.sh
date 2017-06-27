@@ -71,6 +71,16 @@ case $action in
         done
         wait
         ;;
+    fetch-logs)
+        for i in `seq $from $to`
+        do
+            user=$prefix-$i
+            echo "Fetching logs from probcomp-stack-$user"
+            (./get.sh $user '/home/ubuntu/.iventure_logs' "logs/${user}" -r 2>&1 \
+                 | while read line; do echo $user: $line; done) &
+        done
+        wait
+        ;;
     grab-content)
         for i in `seq $from $to`
         do
