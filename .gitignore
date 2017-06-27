@@ -1,5 +1,5 @@
-probcomp-stack*.tar
-probcomp-stack*.tgz
-probcomp-stack*.zip
-release-playpen
-jupyter_notebook_config.json
+/probcomp-stack*.tar
+/probcomp-stack*.tgz
+/probcomp-stack*.zip
+/release-playpen
+/jupyter_notebook_configs/
