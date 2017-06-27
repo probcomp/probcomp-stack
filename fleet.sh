@@ -47,8 +47,9 @@ case $action in
     delete)
         for i in `seq $from $to`
         do
-            echo "Deleting probcomp-stack-oreilly-$i"
-            aws cloudformation delete-stack --stack-name probcomp-stack-oreilly-$i
+            user=$prefix-$i
+            echo "Deleting probcomp-stack-$user"
+            aws cloudformation delete-stack --stack-name probcomp-stack-$user
             sleep 1
         done
         for i in `seq $from $to`
