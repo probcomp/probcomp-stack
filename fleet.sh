@@ -61,6 +61,16 @@ case $action in
             sleep 1
         done
         ;;
+    deb-upgrade)
+        for i in `seq $from $to`
+        do
+            user=$prefix-$i
+            echo "Upgrading Ubuntu packages on probcomp-stack-$user"
+            (./login.sh $user 'sudo apt-get update -q && sudo apt-get upgrade -y -q' 2>&1 \
+                 | while read line; do echo $user: $line; done) &
+        done
+        wait
+        ;;
     grab-content)
         for i in `seq $from $to`
         do
