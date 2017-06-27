@@ -85,7 +85,7 @@ case $action in
         do
             user=$prefix-$i
             echo "Setting the password on probcomp-stack-$user"
-            ./set-jupyter-password.sh $user oreilly-passwords/$i.passwd || true
+            ./set-jupyter-password.sh $user jupyter-passwords/$user.passwd || true
         done
         ;;
     *)
