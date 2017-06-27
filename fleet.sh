@@ -51,6 +51,14 @@ case $action in
             aws cloudformation delete-stack --stack-name probcomp-stack-oreilly-$i
             sleep 1
         done
+        for i in `seq $from $to`
+        do
+            user=$prefix-$i
+            stack=probcomp-stack-$user
+            echo "Waiting for $stack to come down"
+            ./aws/stackwait.sh $stack || true
+            sleep 1
+        done
         ;;
     grab-content)
         for i in `seq $from $to`
