@@ -24,7 +24,7 @@ case $action in
             stack=probcomp-stack-$user
             echo "`echo ${action%e} | tr cu CU`ing $stack"
             ./stack-start.sh $action $user $instance $ami_id &
-            sleep 1
+            sleep 0.3
         done
         wait
         for i in `seq $from $to`
@@ -33,7 +33,7 @@ case $action in
             stack=probcomp-stack-$user
             echo "Waiting for $stack to come up"
             ./aws/stackwait.sh $stack || true
-            sleep 1
+            sleep 0.3
         done
         for i in `seq $from $to`
         do
@@ -41,7 +41,7 @@ case $action in
             stack=probcomp-stack-$user
             echo "Finalizing $stack"
             ./stack-finish.sh $user || true
-            sleep 1
+            sleep 0.3
         done
         ;;
     delete)
@@ -50,7 +50,7 @@ case $action in
             user=$prefix-$i
             echo "Deleting probcomp-stack-$user"
             aws cloudformation delete-stack --stack-name probcomp-stack-$user
-            sleep 1
+            sleep 0.3
         done
         for i in `seq $from $to`
         do
@@ -58,7 +58,7 @@ case $action in
             stack=probcomp-stack-$user
             echo "Waiting for $stack to come down"
             ./aws/stackwait.sh $stack || true
-            sleep 1
+            sleep 0.3
         done
         ;;
     deb-upgrade)
