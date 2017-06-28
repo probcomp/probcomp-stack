@@ -102,12 +102,15 @@ case $action in
         wait
         ;;
     set-passwords)
+        python write-jupyter-passwords.py $prefix $from $(($to + 1)) # Fence-post
         for i in `seq $from $to`
         do
             user=$prefix-$i
             echo "Setting the password on probcomp-stack-$user"
-            ./set-jupyter-password.sh $user jupyter-passwords/$user.passwd || true
+            (./set-jupyter-password.sh $user 2>&1 \
+                 | while read line; do echo $user: $line; done) &
         done
+        wait
         ;;
     *)
         printf >&2 'Unknown action %s\n' "$action"
