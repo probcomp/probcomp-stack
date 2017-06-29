@@ -10,7 +10,7 @@ cd "$root_dirname"
 action=$1
 user=$2
 instance=$3
-ami_id=${4:-ami-0f6b2119}
+ami_id=${4:-ami-751b2c63}
 
 ./stack-start.sh $action $user $instance $ami_id
 

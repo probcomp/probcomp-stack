@@ -1,11 +1,15 @@
-| Person             | Username    |
-|--------------------+-------------|
-| Steven Berman      | steven      |
-| Guest 1 (Veronica) | guest-1     |
-| Brian Pauls        | brian       |
-| Andrew Bolton      | andrew      |
-| Zane               | zane        |
-| Marie              | marie       |
-| Stuart Altschulet  | oreilly-223 |
-| Guillaume Alleon   | guillaume   |
-|--------------------+-------------|
+| Person             | Username    | AMI            |
+|--------------------+-------------+----------------|
+| Steven Berman      | steven      | ? ami-0f6b2119 |
+| Guest 1 (Veronica) | guest-1     | ? ami-0f6b2119 |
+| Brian Pauls        | brian       | ? ami-0f6b2119 |
+| Andrew Bolton      | andrew      | ? ami-0f6b2119 |
+| Zane               | zane        | ? ami-0f6b2119 |
+| Marie              | marie       | ? ami-0f6b2119 |
+| Stuart Altschulet  | oreilly-223 | ami-751b2c63   |
+| Guillaume Alleon   | guillaume   | ami-751b2c63   |
+|--------------------+-------------+----------------|
+
+The AMI is relevant because cloudformation update-stack will destroy
+and recreate the instance, losing all data on it, if one asks to
+change the AMI (even inadvertently)

@@ -5,7 +5,7 @@ set -Ceu
 action=$1
 user=$2
 instance=$3
-ami_id=${4:-ami-0f6b2119}
+ami_id=${4:-ami-751b2c63}
 
 aws cloudformation $action-stack \
     --stack-name probcomp-stack-$user \

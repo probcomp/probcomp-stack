@@ -37,7 +37,7 @@ Parameters:
   BaseAMI:
     Description: AMI to start the instance from
     Type: AWS::EC2::Image::Id
-    Default: ami-0f6b2119
+    Default: ami-751b2c63
 
 # I would have wanted the default AMI to be region specific,
 # indirecting through a lookup in the AWSRegionToAMI mapping,
@@ -48,7 +48,7 @@ Parameters:
 Mappings:
   AWSRegionToAMI:
     us-east-1:
-      AMI: ami-0f6b2119
+      AMI: ami-751b2c63
 
 Resources:
   VPC:
