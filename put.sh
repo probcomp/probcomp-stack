@@ -9,8 +9,8 @@ shift
 dest=$1
 shift
 
-scp -i bch20170503-ec2.pem \
+rsync -e "ssh -i bch20170503-ec2.pem \
   -o UserKnownHostsFile=known_hosts/$user \
   -o CheckHostIP=no \
-  -o StrictHostKeyChecking=yes \
+  -o StrictHostKeyChecking=yes" \
   ${1+"$@"} "$source" "ubuntu@ssh.$user.stack.probcomp.net:$dest"
