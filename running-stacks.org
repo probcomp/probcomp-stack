@@ -7,4 +7,5 @@
 | Zane               | zane        |
 | Marie              | marie       |
 | Stuart Altschulet  | oreilly-223 |
+| Guillaume Alleon   | guillaume   |
 |--------------------+-------------|
