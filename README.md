@@ -71,6 +71,32 @@ to get it to work for you, or invoke the pieces separately.
 
 Test it by browsing `https://<user>.stack.probcomp.net`
 
+Check in the host key in the `known_hosts` directory, and a line about
+who it's for in the `running-stacks.org` file.
+
+### Create a fleet of many instances for some purpose
+
+Choose
+- Base name for the fleet stacks
+- Range of indexes to set up
+- Instance type (e.g., c3.8xlarge)
+
+Create passwords for all the instances, in files named `jupyter-passwords/<base>-<i>.passwd`
+
+Make sure the desired content (from `workshop-materials`, presumably)
+is uploaded as a compressed tar archive at
+`https://probcomp-oreilly20170627.s3.amazonaws.com/content-package.tgz`
+
+Edit `fleet.sh` to change prefix variable to your chosen base name,
+rather than "oreilly".
+
+Run
+```
+./fleet.sh create <low> <high> <instance>
+```
+
+Check a few by browsing `https://<base>-<i>.stack.probcomp.net`
+
 ### Change the instance type for a user
 
 - Run `./stack.sh update <user> <new-instance>`
