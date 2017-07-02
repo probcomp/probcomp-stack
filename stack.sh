@@ -17,3 +17,20 @@ ami_id=${4:-ami-751b2c63}
 ./aws/stackwait.sh probcomp-stack-$user
 
 ./stack-finish.sh $user
+
+# This chunk is copied from fleet.sh
+
+# Upgrade to the latest versions of our packages
+./login.sh $user 'sudo apt-get update -q && sudo apt-get upgrade -y -q'
+
+# Collect the introductory content
+./login.sh $user 'wget --progress=dot:giga -O - https://probcomp-oreilly20170627.s3.amazonaws.com/content-package.tgz | gunzip -c | tar xf -'
+
+# Install Gen
+./login.sh $user 'cd ~/gen && ./install.sh'
+
+# Compute the password json file
+python ./write-jupyter-passwords.py $user
+
+# Set the password
+./set-jupyter-password.sh $user

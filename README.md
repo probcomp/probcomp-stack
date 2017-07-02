@@ -50,48 +50,30 @@ Choose:
   c3.8xlarge for compute)
 - Initial password
 
+Save the password in the file `jupyter-passwords/<user>.passwd`
+
+Make sure the desired content (from `workshop-materials`, presumably)
+is uploaded as a compressed tar archive at
+`https://probcomp-oreilly20170627.s3.amazonaws.com/content-package.tgz`
+
 Run
-
 ```
-aws cloudformation create-stack \
-    --stack-name probcomp-stack-<user> \
-    --template-body file://aws/stack.yaml \
-    --parameters ParameterKey=Name,ParameterValue=<user> \
-      ParameterKey=InstanceType,ParameterValue=<instance> \
-      ParameterKey=KeyName,ParameterValue=<key> \
-      ParameterKey=CertificateArn,ParameterValue=arn:aws:acm:us-east-1:590421120965:certificate/f3ac3e7b-b8fd-4bb8-9bb7-c2f9299c9233 \
-      ParameterKey=Hostname,ParameterValue=<user>.stack \
-      ParameterKey=Zone,ParameterValue=probcomp.net.
+./stack.sh create <user> <instance>
 ```
 
-The command returns quickly, but the actual creation takes about 5 minutes.
+If something goes wrong, the CloudFormation section of the AWS console
+is helpful.
 
-If something goes wrong (which will be silent), the CloudFormation
-section of the AWS console is helpful.
+Right now this script bakes in some assumptions specific to my
+(axch's) machine, such as the choice and location of the key pair to
+start the instance with.  It may be necessary to make some adjustments
+to get it to work for you, or invoke the pieces separately.
 
-Then, log in to the instance and do the following things:
-- `source venv/bin/activate`
-- `jupyter notebook --generate-config`
-- If Issue #4 is not fixed, manually set the Jupyter notebook password with
-  `jupyter notebook password`
-- Install the initial content from the `workshop-materials` repository
-  into the appropriate places using `scp` or `rsync`.
-  - The server's document root should be `notebook`
-  - Be sure to chmod u+w all files that were managed by git annex
-  - Don't forget the probcomp branding material, which goes into
-    `$HOME/.jupyter/custom` on the instance
-- If Issue #3 is not fixed, manually start the Jupyter server
-  - `cd notebook && nohup jupyter notebook --no-browser --NotebookApp.iopub_data_rate_limit=10000000000 --ip=\* > $HOME/jupyter.nohup.out &`
-- Test it with a browser
+Test it by browsing `https://<user>.stack.probcomp.net`
 
 ### Change the instance type for a user
 
-- Run `aws cloudformation update-stack` with the same arguments as above, except with the new instance type.
-
-The command returns quickly, but the actual update can take about 3 minutes.
-
-May also need to manually restart the jupyter server, if Issue #3 is
-not fixed yet.
+- Run `./stack.sh update <user> <new-instance>`
 
 ### Terminate a user's instance
 
@@ -99,16 +81,11 @@ Run `aws cloudformation delete-stack --stack-name probcomp-stack-<user>`
 
 ### SSH into the instance
 
-- Get the instance's ssh host key by running
-
-   ./aws/hostkey.sh probcomp-stack-<user> ssh.<user>.stack.probcomp.net >> known_hosts
-
-  (this will silently leave a blank known_hosts file if the instance
-  hasn't finished booting yet.)
+- The instance's ssh host key should be saved in `known_hosts/<user>`
 
 - `login.sh <user>`
   which runs
-  `ssh -i <private-key> -o UserKnownHostsFile=./known_hosts -o CheckHostIP=no ubuntu@ssh.<user>.stack.probcomp.net`
+  `ssh -i <private-key> -o UserKnownHostsFile=./known_hosts/<user> -o CheckHostIP=no -o StrictHostKeyChecking=yes ubuntu@ssh.<user>.stack.probcomp.net`
   with the default key (namely, bch20170503-ec2.pem)
 
 ### Change a user's Jupyter notebook password
@@ -117,15 +94,15 @@ Run `aws cloudformation delete-stack --stack-name probcomp-stack-<user>`
 - activate the virtual environment `venv`
 - `jupyter notebook password`
 
-Or see solution to Issue #4
+Or
+
+- write the new password to `jupyter-passwords/<user>.passwd`
+- `python write-jupyter-passwords.py <user>`
+- `./set-jupyter-password.sh`
 
 ### Restart a user's Jupyter notebook server, if needed
 
-- ssh into the instance with command
-- activate the virtual env `venv`
-- `cd notebook`
-- `nohup jupyter notebook --no-browser --ip=\* > $HOME/jupyter.nohup.out &`
-- logout
+`./restart-jupyter.sh`
 
 ### Visit the Jupyter notebook server
 
