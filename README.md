@@ -178,3 +178,20 @@ Dockerfiles available:
 The version of jupyter on pypi is newer than the version of ipython
 notebook in Ubuntu 16.04, but the level of QA and reliability on any
 particular base system such as Ubuntu 16.04 is unpredictable.
+
+Updating Probcomp software
+--------------------------
+
+The current process for getting an instance with a fresh package set:
+- Build, sign, and upload our packages to our apt repo
+  http://probcomp.csail.mit.edu/ubuntu-prerelease
+  - instructions in https://github.com/probcomp/packaging/tree/master/ubuntu
+  - probcomp-ubuntu-keyring
+  - python-bayeslite
+  - python-cgpm
+  - python-crosscat
+  - python-iventure
+  - python-pytest
+  - python-venture
+  - Taylor and Axch have code signing keys
+- make the instance apt-get update and apt-get upgrade
