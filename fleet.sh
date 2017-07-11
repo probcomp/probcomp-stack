@@ -76,7 +76,8 @@ case $action in
         do
             user=$prefix-$i
             echo "Fetching logs from probcomp-stack-$user"
-            (./get.sh $user '/home/ubuntu/.iventure_logs' "logs/${user}" -r 2>&1 \
+            mkdir -p "logs/${user}"
+            (./get.sh $user '/home/ubuntu/.iventure_logs/' "logs/${user}" -r -t 2>&1 \
                  | while read line; do echo $user: $line; done) &
         done
         wait
