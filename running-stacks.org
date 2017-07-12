@@ -1,11 +1,11 @@
 | Person            | Username          | AMI            |                    |
 |-------------------+-------------------+----------------+--------------------|
-| Steven Berman     | steven            | ? ami-0f6b2119 |                    |
+| Steven Berman     | steven            | ? ami-0f6b2119 | Stopped            |
 | Veronica          | guest-1           | ? ami-0f6b2119 |                    |
 | Brian Pauls       | brian             | ? ami-0f6b2119 | Stopped            |
-| Andrew Bolton     | andrew            | ? ami-0f6b2119 |                    |
+| Andrew Bolton     | andrew            | ? ami-0f6b2119 | Stopped            |
 | Zane              | zane              | ? ami-0f6b2119 | Keep as of 7/10/17 |
-| Marie Huber       | marie             | ? ami-0f6b2119 |                    |
+| Marie Huber       | marie             | ? ami-0f6b2119 | Stopped            |
 | Stuart Altschulet | oreilly-223       | ami-751b2c63   | Stopped            |
 | Guillaume Alleon  | guillaume         | ami-751b2c63   | Stopped            |
 | William McInroy   | liam              | ami-751b2c63   |                    |
