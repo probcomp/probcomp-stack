@@ -13,6 +13,7 @@
 |                   | vsw-nelson        |                |                    |
 |                   | vsw-nelson-eeg    |                |                    |
 |                   | vsw-nelson-survey |                |                    |
+| Marie Huber       | mariehuber        |                |                    |
 |-------------------+-------------------+----------------+--------------------|
 
 The AMI is relevant because cloudformation update-stack will destroy
