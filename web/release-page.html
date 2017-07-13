@@ -1,0 +1,119 @@
+<h1>
+probcomp-stack-0.2
+</h1>
+
+This is probcomp-stack-0.2, released on 19 July 2017.  Blah blah one
+sentence description of what this is blah blah <a href="https://jupyter.org/">jupyter notebooks</a> blah blah.
+
+<p>
+[QUESTION: what is this thing to be called, exactly, and what is its
+version number?  The 'alpha' documented 
+<a href="https://probcomp-1.csail.mit.edu/stack/">here</a> is
+called variously 'probcomp stack' or 'stack 0.1'.]
+
+<h2>
+Before you start
+</h2>
+
+<p>
+This is research software.  It is certain to contain bugs.  No warranty of any kind
+is implied by this release.  Use it at your own risk.
+
+<p>
+The installation requires some level of technical ability,
+specifically the ability to use the command line, and to install
+prerequisite software if required.
+
+<h3>Hardware requirements</h3>
+
+The notebooks in this release have successfully executed with the
+following hardware configuration, with acceptable performance:
+
+<ul>
+  <li> 60G RAM
+  <li> 32 CPU cores
+</ul>
+
+<p>
+Running with much less than this may lead to heavy load, long
+delays, and/or crashes. Actual application demands vary depending on the
+particulars of the data set, both its size and the data itself.
+
+<p>
+We assume that you are using a workstation possessing the recommended
+resources via the workstation's monitor and keyboard.
+Client/server configurations are possible for this software, 
+and some of you will be able to figure out how to configure it in this way.
+This subject beyond the scope of the present document.
+
+
+<h3>Software prerequisistes</h3>
+
+<p>
+probcomp-stack-0.2 has been tested on ubuntu 16.04.2 LTS, but we
+anticipate that it will run on any operating system that supports
+<a href="https://www.docker.com/">Docker</a>, such as most GNU/Linux variants and Mac OS X.
+
+<p>
+probcomp-stack-0.2 requires <a href="https://www.docker.com/">Docker</a> version 6 or later.
+</p>
+
+<p>
+You will need an unzip program, specifically unzip, winzip, or
+similar; one of these is built in to most operating systems,
+and may automatically launch on download.
+
+<h2>Download and installation</h2>
+
+<ol>
+  <li>
+    <p>Download <a href="probcomp-stack-full-0.2.zip">the stack 0.2 distribution</a> (370 MB).</p>
+
+    <p>Optional: To check the integrity of the download, the SHA256
+checksum is 79183671ab39c8625c49fab668069013e763b790054707febd95bc90eaa31391.</p>
+  </li>
+
+  <li>
+    <p>If the file has not been unzipped automatically on download, unzip it using WinZip or similar.
+    The result will be a single file, probcomp-stack-full-0.2.tar,
+    and may be placed wherever you like.</p>
+  </li>
+</ol>
+
+<h2>How to run</h2>
+
+<ol>
+  <li>
+    <p>
+      At the command line, navigate to the directory containing
+      probcomp-stack-full-0.2.tar.
+      Start the Docker container as follows:</p>
+
+    <pre><code> $ docker load --input probcomp-stack-full-0.2.tar
+ $ docker run --rm --publish 127.0.0.1:8080:8080/tcp \
+     probcomp/stack-release:0.1</code></pre>
+  </li>
+  <li>
+    <p>In a web browser, visit the location <a href="http://localhost:8080/">http://localhost:8080/</a></p>
+  </li>
+</ol>
+
+<p>
+[QUESTION: Is the <code>docker load</code> step really part of
+installation, in that it only has to run once at install time?  I
+don't understand how this works.  But if this is so,
+the <code>load</code> step should be documented as part of
+installation, not under 'how to run'.]
+
+<p>
+[QUESTION: Is the application self-explanatory from that point that
+the home web page comes up?  Need to check.]
+
+<p>
+In the unlikely even port 8080 is unavailable on your machine, feel free to choose a
+different port.
+
+<h3>Saving your work</h3>
+
+To save any changed or new notebooks, use either 'Save and checkpoint'
+or 'Download' in the Jupyter notebook 'File' menu.
