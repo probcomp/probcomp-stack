@@ -1,22 +1,25 @@
 <h1>
-probcomp-stack-0.2
+probcomp-stack-0.1
 </h1>
 
-This is probcomp-stack-0.2, released on 19 July 2017.  Blah blah one
-sentence description of what this is blah blah <a href="https://jupyter.org/">jupyter notebooks</a> blah blah.
+<p>
+[VERSION NUMBER - everything will change to 0.2, but as
+of this writing only version 0.1 is present.]
 
 <p>
-[QUESTION: what is this thing to be called, exactly, and what is its
-version number?  The 'alpha' documented 
-<a href="https://probcomp-1.csail.mit.edu/stack/">here</a> is
-called variously 'probcomp stack' or 'stack 0.1'.]
+This is probcomp-stack-0.1, released by the 
+<a href="http://probcomp.csail.mit.edu/"
+>MIT Probabilistic Computing Project</a>
+on 19 July 2017.  Blah blah one
+sentence description of what this is blah blah 
+<a href="https://jupyter.org/">jupyter notebooks</a> blah blah.
 
 <h2>
 Before you start
 </h2>
 
 <p>
-This is research software.  It is certain to contain bugs.  No warranty of any kind
+This is research software.  It is certain to contain flaws.  No warranty of any kind
 is implied by this release.  Use it at your own risk.
 
 <p>
@@ -37,81 +40,109 @@ following hardware configuration, with acceptable performance:
 <p>
 Running with much less than this may lead to heavy load, long
 delays, and/or crashes. Actual application demands vary depending on the
-particulars of the data set, both its size and the data itself.
+particulars of the data set, both on its size and on the data itself.
 
 <p>
 We assume that you are using a workstation possessing the recommended
-resources via the workstation's monitor and keyboard.
-Client/server configurations are possible for this software, 
-and some of you will be able to figure out how to configure it in this way.
-This subject beyond the scope of the present document.
+resources via the workstation's monitor and keyboard.  Client/server
+configurations may be possible for this software with additional
+setup, but methods vary by operating system.  We have not prepared
+documentation for client/server configurations.
+
+<p>
+[NOTE: It is JAR's feeling that very few people will have a hefty
+workstation with a head; indeed I have personally never seen such a thing.  They are
+much more likely to have a hefty server and an ordinary laptop or desktop.  This
+is why I feel compelled to say <i>something</i> about client/server
+configuration: If we do not acknowledge the possibility, then it will sound
+as if a same-computer configuration is <i>required</i> when it is not,
+and we will immediately decimate the potential user base.]
+
+<p>
+[CONTINUED: Mentioning 'ssh tunnel' could be a useful hint
+for some portion of the audience (not all of it), but I understand
+that we're not supposed to mention ssh for some reason?  There are
+other access options (e.g. https) but we don't have time before Wednesday to
+implement any hooks or features that would make this setup easy and
+documentable.  I see the two constraints "no new implementation work now" and
+"do not mention ssh" as forcing the above weasel-wording.]
+
 
 
 <h3>Software prerequisistes</h3>
 
 <p>
-probcomp-stack-0.2 has been tested on ubuntu 16.04.2 LTS, but we
+probcomp-stack-0.1 has been tested on ubuntu 16.04.2 LTS, but we
 anticipate that it will run on any operating system that supports
-<a href="https://www.docker.com/">Docker</a>, such as most GNU/Linux variants and Mac OS X.
+<a href="https://www.docker.com/">Docker</a>, such as most GNU/Linux
+variants, Mac OS X, and 
+<a href="https://docs.docker.com/docker-for-windows/install/#what-to-know-before-you-install"
+>64-bit Windows 10</a>.
 
 <p>
-probcomp-stack-0.2 requires <a href="https://www.docker.com/">Docker</a> version 6 or later.
+probcomp-stack-0.1 requires Docker version 1.6 or later.
 </p>
 
 <p>
-You will need an unzip program, specifically unzip, winzip, or
-similar; one of these is built in to most operating systems,
-and may automatically launch on download.
+You will need an unzip program such as unzip or WinZip.  One of these
+is part of most operating system distributions, so it is unlikely that you will
+need to install it.
 
 <h2>Download and installation</h2>
 
 <ol>
   <li>
-    <p>Download <a href="probcomp-stack-full-0.2.zip">the stack 0.2 distribution</a> (370 MB).</p>
+    <p>Download <a href="probcomp-stack-full-0.1.zip">the probcomp-stack-0.1 distribution</a> (370 MB).</p>
 
     <p>Optional: To check the integrity of the download, the SHA256
 checksum is 79183671ab39c8625c49fab668069013e763b790054707febd95bc90eaa31391.</p>
   </li>
 
   <li>
-    <p>If the file has not been unzipped automatically on download, unzip it using WinZip or similar.
-    The result will be a single file, probcomp-stack-full-0.2.tar,
+    <p>If the file has not been unzipped automatically on download, unzip it using WinZip or unzip.
+    The result will be a single file, <code>probcomp-stack-full-0.1.tar</code>,
     and may be placed wherever you like.</p>
   </li>
 </ol>
+
+<p>[QUESTION: Why do the filenames include the word <code>full</code>?
+  Can that be removed, for the sake of consistency?... not too important.]
 
 <h2>How to run</h2>
 
 <ol>
   <li>
-    <p>
       At the command line, navigate to the directory containing
-      probcomp-stack-full-0.2.tar.
+      <code>probcomp-stack-full-0.1.tar</code>.
+  <li>
+    <p>
       Start the Docker container as follows:</p>
 
-    <pre><code> $ docker load --input probcomp-stack-full-0.2.tar
+    <pre><code> $ docker load --input probcomp-stack-full-0.1.tar
  $ docker run --rm --publish 127.0.0.1:8080:8080/tcp \
      probcomp/stack-release:0.1</code></pre>
   </li>
   <li>
-    <p>In a web browser, visit the location <a href="http://localhost:8080/">http://localhost:8080/</a></p>
+    <p>In a web browser, visit the location <a href="http://localhost:8080/"><code>http://localhost:8080/</code></a></p>
   </li>
 </ol>
 
 <p>
-[QUESTION: Is the <code>docker load</code> step really part of
-installation, in that it only has to run once at install time?  I
-don't understand how this works.  But if this is so,
+In the unlikely event that port 8080 is unavailable on your machine, feel free to choose a
+different port.
+
+<p>
+[QUESTION: Is the <code>docker load</code> step actually part of
+installation, i.e. does it only have to run once at install time?  I
+don't understand how this works (daemon, state, etc.).  But if <code>load</code>
+need only be done once, the
 the <code>load</code> step should be documented as part of
 installation, not under 'how to run'.]
 
 <p>
 [QUESTION: Is the application self-explanatory from that point that
-the home web page comes up?  Need to check.]
-
-<p>
-In the unlikely even port 8080 is unavailable on your machine, feel free to choose a
-different port.
+the home web page comes up?  Need to check.  If not, say here what
+people should do once they connect to it.]
 
 <h3>Saving your work</h3>
 
