@@ -16,7 +16,7 @@ docker build --no-cache -t probcomp/base -f docker/ubuntu1604-jupyter docker
 # Collect the content to release into a directory
 rm -rf release-playpen
 mkdir -p release-playpen
-release-archive.sh "$release"
+./release-archive.sh "$release"
 cp "probcomp-stack-$release.zip" release-playpen
 (cd release-playpen && unzip "probcomp-stack-$release.zip")
 cp docker/ubuntu1604-jupyter-full release-playpen
