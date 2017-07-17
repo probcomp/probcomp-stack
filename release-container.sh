@@ -8,7 +8,7 @@ root_dirname=$(dirname "$my_abs_path")
 echo "$root_dirname"
 cd "$root_dirname"
 
-release=${1:-0.1}
+release=${1:-0.2}
 
 # Build the bare release container as a base
 docker build --no-cache -t probcomp/base -f docker/ubuntu1604-jupyter docker
