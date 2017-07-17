@@ -9,11 +9,13 @@ This is probcomp-stack-0.1, released by the
 on 19 July 2017.  Blah blah one
 sentence description of what this is blah blah 
 <a href="https://jupyter.org/">jupyter notebooks</a> blah blah.
+</p>
 
 <blockquote>
 <p>
 [VERSION NUMBER NOTE - the version number will change to 0.2 before 7/19, but as
 of this writing there is only a version 0.1.]
+</p>
 </blockquote>
 
 <h2>
@@ -23,27 +25,32 @@ Before you start
 <p>
 This is research software.  It is certain to contain flaws.  No warranty of any kind
 is implied by this release.  Use it at your own risk.
+</p>
 
 <p>
 The installation requires some level of technical ability,
 specifically the ability to use the command line, and to install
 prerequisite software if required.
+</p>
 
 <h3>Hardware requirements</h3>
 
+<p>
 The notebooks in this release have successfully executed with the
 following hardware configuration, with acceptable performance:
+</p>
 
 <ul>
-  <li> 60G RAM
-  <li> 32 CPU cores
-  <li> 2.5 Gbyte available disk space
+  <li> 60G RAM </li>
+  <li> 32 CPU cores </li>
+  <li> 2.5 Gbyte available disk space </li>
 </ul>
 
 <p>
 Running with much less than this may lead to heavy load, long
 delays, and/or crashes. Actual application demands vary depending on the
 particulars of the data set, both on its size and on the data itself.
+</p>
 
 <p>
 We assume that you are using a workstation possessing the recommended
@@ -51,6 +58,7 @@ resources via the workstation's monitor and keyboard.  Client/server
 configurations are possible for this software with additional
 setup, but methods vary by operating system.  We have not prepared
 documentation for client/server configurations.
+</p>
 
 <!-- 
 <blockquote>
@@ -84,6 +92,7 @@ anticipate that it will run on any operating system that supports
 variants, Mac OS X, and 
 <a href="https://docs.docker.com/docker-for-windows/install/#what-to-know-before-you-install"
 >64-bit Windows 10</a>.
+</p>
 
 <p>
 probcomp-stack-0.1 requires Docker version 1.6 or later.
@@ -93,6 +102,7 @@ probcomp-stack-0.1 requires Docker version 1.6 or later.
 You will need an unzip program such as unzip or WinZip.  One of these
 is part of most operating system distributions, so it is unlikely that you will
 need to install it.
+</p>
 
 <h2>Download and installation</h2>
 
@@ -112,8 +122,10 @@ checksum is 79183671ab39c8625c49fab668069013e763b790054707febd95bc90eaa31391.</p
   </li>
 
   <li>
+    <p>
       At the command line, navigate to the directory containing
       <code>probcomp-stack-full-0.1.tar</code>.
+    </p>
   <li>
     <p>
       Tell docker about the probcomp-stack container as follows:</p>
@@ -128,6 +140,7 @@ checksum is 79183671ab39c8625c49fab668069013e763b790054707febd95bc90eaa31391.</p
   and skip the unzip step.  Docker can take in .tgz files directly so
   this requires no explanation or prerequisiste.
   Remove discussion of unzip from the documentation.]
+</p>
 </blockquote>
 
 <h2>How to run</h2>
@@ -136,6 +149,7 @@ checksum is 79183671ab39c8625c49fab668069013e763b790054707febd95bc90eaa31391.</p
   <li>
       At the command line, navigate to the directory containing
       <code>probcomp-stack-full-0.1.tar</code>.
+  </li>
   <li>
     <p>
       Start the Docker container as follows:</p>
@@ -144,15 +158,18 @@ checksum is 79183671ab39c8625c49fab668069013e763b790054707febd95bc90eaa31391.</p
      probcomp/stack-release:0.1</code></pre>
   </li>
   <li>
-    <p>In a web browser, visit the location <a href="http://localhost:8080/"><code>http://localhost:8080/</code></a></p>
+    <p>In a web browser, visit the location 
+    <a href="http://localhost:8080/"><code>http://localhost:8080/</code></a></p>
   </li>
 </ol>
 
 <p>
 In the unlikely event that port 8080 is unavailable on your machine, feel free to choose a
 different port.
+</p>
 
 <h3>Saving your work</h3>
 
-To save any changed or new notebooks, use either 'Save and checkpoint'
-or 'Download' in the Jupyter notebook 'File' menu.
+<p>
+To save any changed or new notebooks, use 'Download' in the Jupyter notebook 'File' menu.
+</p>
