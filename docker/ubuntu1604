@@ -27,10 +27,9 @@ RUN             apt-get update -qq && \
                         python-crosscat \
                         python-iventure \
                         python-pytest \
+                        python-seaborn \
                         python-venture \
                         ; # end of probcomp packages
-
-RUN             apt-get install -qq python-seaborn
 
 RUN             mkdir /notebook
 
