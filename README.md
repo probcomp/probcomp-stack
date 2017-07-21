@@ -114,6 +114,13 @@ Check a few by browsing `https://<base>-<i>.stack.probcomp.net`
 
 Run `aws cloudformation delete-stack --stack-name probcomp-stack-<user>`
 
+### Stop or resatrt a user's instance
+
+Log in to the EC2 console, find the instance tagged `<user>/instance`,
+and stop or restart it.  Note that this requires an extra step to
+re-enable the ssh address below, per
+https://github.com/probcomp/probcomp-stack/issues/38
+
 ### SSH into the instance
 
 - The instance's ssh host key should be saved in `known_hosts/<user>`
