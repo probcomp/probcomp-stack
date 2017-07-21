@@ -95,6 +95,15 @@ Run
 ./fleet.sh create <low> <high> <instance>
 ```
 
+Then run whichever of
+```
+./fleet.sh deb-upgrade <low> <high> something
+./fleet.sh grab-content <low> <high> something
+./fleet.sh marco-install <low> <high> something
+./fleet.sh set-passwords <low> <high> something
+```
+are desired
+
 Check a few by browsing `https://<base>-<i>.stack.probcomp.net`
 
 ### Change the instance type for a user
