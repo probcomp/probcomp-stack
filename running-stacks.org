@@ -8,8 +8,8 @@
 | Marie Huber       | marie             | ? ami-0f6b2119 | Stopped            |
 | Stuart Altschulet | oreilly-223       | ami-751b2c63   | Stopped            |
 | Guillaume Alleon  | guillaume         | ami-751b2c63   | Stopped            |
-| William McInroy   | liam              | ami-751b2c63   |                    |
-| Michael Truell    | michael           | ami-751b2c63   |                    |
+| William McInroy   | liam              | ami-751b2c63   | Stopped            |
+| Michael Truell    | michael           | ami-751b2c63   | Stopped            |
 |                   | vsw-nelson        |                |                    |
 |                   | vsw-nelson-eeg    |                |                    |
 |                   | vsw-nelson-survey |                |                    |
