@@ -8,47 +8,34 @@
 
 set -eu
 
+nup=3
+pages=13
 echo "" > url-cards.txt
-(for i in `seq 1 4 400`
-do cat <<EOF >> url-cards.txt
+(for page in `seq $pages`
+do (for item in `seq $nup`
+do
+number=$(($page + $pages * ($item - 1)))
+if [ "$item" -gt "1" ]; then
+    echo "" >> url-cards.txt
+    echo "" >> url-cards.txt
+    echo "" >> url-cards.txt
+    echo "" >> url-cards.txt
+    echo "" >> url-cards.txt
+    echo "" >> url-cards.txt
+    echo "" >> url-cards.txt
+    echo "" >> url-cards.txt
+    echo "" >> url-cards.txt
+fi
+cat <<EOF >> url-cards.txt
 MIT Probabilistic Computing Project
-O'Reilly Artificial Intelligence Conference
-New York, June 27, 2017
+DARPA PPAML Summer School
+Washington, DC, 2017
 
-https://oreilly-$i.stack.probcomp.net
-Password: `cat oreilly-passwords/$i.passwd`
-
-
-
-
-MIT Probabilistic Computing Project
-O'Reilly Artificial Intelligence Conference
-New York, June 27, 2017
-
-https://oreilly-$((i+1)).stack.probcomp.net
-Password: `cat oreilly-passwords/$((i+1)).passwd`
-
-
-
-
-MIT Probabilistic Computing Project
-O'Reilly Artificial Intelligence Conference
-New York, June 27, 2017
-
-https://oreilly-$((i+2)).stack.probcomp.net
-Password: `cat oreilly-passwords/$((i+2)).passwd`
-
-
-
-
-MIT Probabilistic Computing Project
-O'Reilly Artificial Intelligence Conference
-New York, June 27, 2017
-
-https://oreilly-$((i+3)).stack.probcomp.net
-Password: `cat oreilly-passwords/$((i+3)).passwd`
-
+https://school-$number.stack.probcomp.net
+Pass phrase: `cat jupyter-passwords/school-$number.passwd`
 EOF
+done)
+echo "" >> url-cards.txt
 done)
 
 enscript -fCourier-Bold16 url-cards.txt -o url-cards.ps -b ''
