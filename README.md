@@ -86,6 +86,8 @@ Create passwords for all the instances, in files named `jupyter-passwords/<base>
 Make sure the desired content (from `workshop-materials`, presumably)
 is uploaded as a compressed tar archive at
 `https://probcomp-oreilly20170627.s3.amazonaws.com/content-package.tgz`
+- Perhaps this may call for
+  (cd ../workshop-materials && aws s3 cp content-package.tgz s3://probcomp-oreilly20170627/content-package.tgz)
 
 Edit `fleet.sh` to change prefix variable to your chosen base name,
 rather than "oreilly".
