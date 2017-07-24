@@ -13,7 +13,7 @@ action=$1
 from=$2
 to=$3
 instance=$4
-prefix=oreilly
+prefix=school
 ami_id=ami-751b2c63
 
 case $action in
