@@ -8,7 +8,10 @@ gcloud components install kubectl
 gcloud container clusters get-credentials probcomp-testing \
     --zone us-east1-d --project hazel-aria-174703
 ```
-
+## Push container image
+```
+./release-container-gcp.sh  # from top-level directory
+```
 ## Deploy to GKE
 ```
 cd gcp/services
