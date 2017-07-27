@@ -12,6 +12,11 @@ user=$2
 instance=$3
 ami_id=${4:-ami-751b2c63}
 
+if [ ! -f "jupyter-passwords/${user}.passwd" ]; then
+    printf >&2 "missing jupyter-passwords/${user}.passwd\n"
+    exit 1
+fi
+
 ./stack-start.sh $action $user $instance $ami_id
 
 ./aws/stackwait.sh probcomp-stack-$user
