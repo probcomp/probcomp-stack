@@ -38,6 +38,10 @@ Parameters:
     Description: AMI to start the instance from
     Type: AWS::EC2::Image::Id
     Default: ami-751b2c63
+  VolumeSize:
+    Description: Number of gigabytes for root volume.
+    Type: String
+    Default: 8
 
 # I would have wanted the default AMI to be region specific,
 # indirecting through a lookup in the AWSRegionToAMI mapping,
@@ -159,9 +163,20 @@ Resources:
       KeyName: !Ref KeyName
       ImageId: !Ref BaseAMI
       SubnetId: !Ref Backnet
+      Volumes:
+        - Device: /dev/sda1
+          VolumeId: !Ref Volume
       Tags:
         - Key: Name
           Value: !Sub ${Name}/instance
+  Volume:
+    Type: AWS::EC2::Volume
+    Properties:
+      AvailabilityZone: !Select [ 1, !GetAZs ]
+      Size: !Ref VolumeSize
+      Tags:
+        - Key: Name
+          Value: !Sub ${Name}/rootvolume
   BackSecgroup:
     Type: AWS::EC2::SecurityGroup
     DependsOn: FrontSecgroup
