@@ -89,20 +89,17 @@ is uploaded as a compressed tar archive at
 - Perhaps this may call for
   (cd ../workshop-materials && aws s3 cp content-package.tgz s3://probcomp-oreilly20170627/content-package.tgz)
 
-Edit `fleet.sh` to change prefix variable to your chosen base name,
-rather than "oreilly".
-
 Run
 ```
-./fleet.sh create <low> <high> <instance>
+./fleet.sh create <base-name> <low> <high> [<instance> [<ami-id>]]
 ```
 
 Then run whichever of
 ```
-./fleet.sh deb-upgrade <low> <high> something
-./fleet.sh grab-content <low> <high> something
-./fleet.sh marco-install <low> <high> something
-./fleet.sh set-passwords <low> <high> something
+./fleet.sh deb-upgrade <base-name> <low> <high>
+./fleet.sh grab-content <base-name> <low> <high>
+./fleet.sh marco-install <base-name> <low> <high>
+./fleet.sh set-passwords <base-name> <low> <high>
 ```
 are desired
 

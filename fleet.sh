@@ -10,11 +10,11 @@ root_dirname=$(dirname "$my_abs_path")
 cd "$root_dirname"
 
 action=$1
-from=$2
-to=$3
-instance=$4
-prefix=school
-ami_id=ami-751b2c63
+prefix=$2
+from=$3
+to=$4
+instance=${5:-t2.micro}
+ami_id=${6:-ami-751b2c63}
 
 case $action in
     create|update)
