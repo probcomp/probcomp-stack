@@ -1,20 +1,21 @@
-| Person            | Username          | AMI            |                    |
-|-------------------+-------------------+----------------+--------------------|
-| Steven Berman     | steven            | ? ami-0f6b2119 | Stopped            |
-| Veronica          | guest-1           | ? ami-0f6b2119 |                    |
-| Brian Pauls       | brian             | ? ami-0f6b2119 | Stopped            |
-| Andrew Bolton     | andrew            | ? ami-0f6b2119 | Stopped            |
-| Zane              | zane              | ? ami-0f6b2119 | Keep as of 7/10/17 |
-| Marie Huber       | marie             | ? ami-0f6b2119 | Stopped            |
-| Stuart Altschulet | oreilly-223       | ami-751b2c63   | Stopped            |
-| Guillaume Alleon  | guillaume         | ami-751b2c63   | Stopped            |
-| William McInroy   | liam              | ami-751b2c63   | Stopped            |
-| Michael Truell    | michael           | ami-751b2c63   | Stopped            |
-|                   | vsw-nelson        |                |                    |
-|                   | vsw-nelson-eeg    |                |                    |
-|                   | vsw-nelson-survey |                |                    |
-| Marie Huber       | mariehuber        |                |                    |
-|-------------------+-------------------+----------------+--------------------|
+| Person            | Username          | AMI            |                                   |
+|-------------------+-------------------+----------------+-----------------------------------|
+| Steven Berman     | steven            | ? ami-0f6b2119 | Stopped                           |
+| Veronica          | guest-1           | ? ami-0f6b2119 |                                   |
+| Brian Pauls       | brian             | ? ami-0f6b2119 | Stopped                           |
+| Andrew Bolton     | andrew            | ? ami-0f6b2119 | Stopped                           |
+| Zane              | zane              | ? ami-0f6b2119 | Stopped                           |
+| Marie Huber       | marie             | ? ami-0f6b2119 | Stopped                           |
+| Stuart Altschulet | oreilly-223       | ami-751b2c63   | Stopped                           |
+| Guillaume Alleon  | guillaume         | ami-751b2c63   | Stopped                           |
+| William McInroy   | liam              | ami-751b2c63   | Stopped                           |
+| Michael Truell    | michael           | ami-751b2c63   | Stopped                           |
+|                   | vsw-nelson        |                |                                   |
+|                   | vsw-nelson-eeg    |                |                                   |
+|                   | vsw-nelson-survey |                |                                   |
+| Marie Huber       | mariehuber        |                |                                   |
+| Andrey Koval      | school-39         | ami-751b2c63   | Week-to-week, since summer school |
+|-------------------+-------------------+----------------+-----------------------------------|
 
 The AMI is relevant because cloudformation update-stack will destroy
 and recreate the instance, losing all data on it, if one asks to
