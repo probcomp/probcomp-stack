@@ -149,6 +149,14 @@ Or
 
 https://<user>.stack.probcomp.net/
 
+### Collect usage logs
+
+`./fleet.sh fetch-logs <base-name> <low> <high>`
+
+### Share usage logs with the lab
+
+`rsync -r -v logs/ probcomp-1.csail.mit.edu:/data/probcomp/ppaml/probcomp-stack-logs`
+
 Deploying locally in Docker
 ---------------------------
 
