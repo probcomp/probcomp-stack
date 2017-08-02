@@ -1,0 +1,16 @@
+version: "3"
+volumes:
+  app-data:
+    driver: local
+
+services:
+  app: &app_base
+    build:
+      context: docker/
+      dockerfile: ubuntu1604-jupyter-gcp
+    ports:
+      - 8080:8080
+    volumes:
+      - app-data:/notebook:rw
+    command: --ip='*' --port=8080 --no-browser --NotebookApp.token= \
+      --allow-root --NotebookApp.iopub_data_rate_limit=10000000000

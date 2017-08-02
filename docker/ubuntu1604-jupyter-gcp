@@ -1,0 +1,47 @@
+FROM            ubuntu:16.04
+MAINTAINER      MIT Probabilistic Computing Project
+
+RUN             apt-get update -qq && \
+                apt-get install -qq \
+                        lsb-release \
+                        wget \
+                        ; # end of preliminary packages
+
+RUN             \
+  wget http://probcomp.csail.mit.edu/ubuntu-prerelease/probcomp-ubuntu-20170614.asc
+RUN             \
+  echo fbdb2138c27e286e21ba6eea60061c96de7d73daefae930a6d3f7b630acd199e \
+    probcomp-ubuntu-20170614.asc \
+  | sha256sum -c
+RUN             apt-key add probcomp-ubuntu-20170614.asc
+RUN             \
+  echo deb http://probcomp.csail.mit.edu/ubuntu-prerelease \
+    $(lsb_release -s -c) main \
+  | tee /etc/apt/sources.list.d/probcomp.list
+RUN             apt-get update -qq && \
+                apt-get install -qq \
+                        probcomp-ubuntu-keyring \
+                        python-bayeslite \
+                        python-cgpm \
+                        python-crosscat \
+                        python-iventure \
+                        python-pip \
+                        python-pytest \
+                        python-seaborn \
+                        python-venture \
+                        python-virtualenv \
+                        ; # end of probcomp packages
+
+RUN             pip install -U 'ipython<6' jupyter
+RUN             jupyter notebook --generate-config --allow-root
+
+RUN             mkdir /notebook
+RUN             mkdir /branding
+
+VOLUME          /notebook
+
+EXPOSE          8080
+ENV             CONTENT_URL probcomp-oreilly20170627.s3.amazonaws.com/content-package.tgz
+
+ADD             docker-entrypoint.sh /usr/bin
+ENTRYPOINT      docker-entrypoint.sh
