@@ -1,16 +1,16 @@
 version: "3"
 volumes:
-  app-data:
+  jupyter-data:
     driver: local
 
 services:
-  app: &app_base
+  jupyter: &app_base
     build:
       context: docker/
-      dockerfile: ubuntu1604-jupyter-gcp
+      dockerfile: probcomp-scipy-notebook
     ports:
-      - 8080:8080
+      - 8888:8888
     volumes:
-      - app-data:/notebook:rw
-    command: --ip='*' --port=8080 --no-browser --NotebookApp.token= \
-      --allow-root --NotebookApp.iopub_data_rate_limit=10000000000
+      - jupyter-data:/home/jovyan/work:rw
+    #command: --ip='*' --port=8080 --no-browser --NotebookApp.token= \
+    #  --allow-root --NotebookApp.iopub_data_rate_limit=10000000000
