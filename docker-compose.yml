@@ -12,5 +12,3 @@ services:
       - 8888:8888
     volumes:
       - jupyter-data:/home/jovyan/work:rw
-    #command: --ip='*' --port=8080 --no-browser --NotebookApp.token= \
-    #  --allow-root --NotebookApp.iopub_data_rate_limit=10000000000
