@@ -105,6 +105,12 @@ are desired
 
 Check a few by browsing `https://<base>-<i>.stack.probcomp.net`
 
+### Print physical cards with urls and passwords to hand out
+
+Make sure the passwords are all present in files named `jupyter-passwords/<user>.passwd`.
+
+Loop editing and rerunning the script `url-cards.sh` until the output is as desired.
+
 ### Change the instance type for a user
 
 - Run `./stack.sh update <user> <new-instance>`

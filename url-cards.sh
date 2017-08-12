@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # Leave in the file url-cards.ps a printable document consisting of
-# one url per page.  This is useful for printing out (single-sided!)
-# and handing out at a workshop that involves giving the participants
-# EC2 instances.  The pages can be folded over to write people's
-# passwords inside.
+# $nup blocks of url and password.  This is useful for printing out
+# (single-sided!) and handing out at a workshop that involves giving
+# the participants EC2 instances.  The cards are ordered so that
+# cutting the pages will produce sequential stacks.
 
 set -eu
 
