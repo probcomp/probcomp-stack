@@ -1,22 +1,24 @@
-| Person            | Username          | AMI            |                                   |
-|-------------------+-------------------+----------------+-----------------------------------|
-| Steven Berman     | steven            | ? ami-0f6b2119 | Stopped                           |
-| Veronica          | guest-1           | ? ami-0f6b2119 |                                   |
-| Brian Pauls       | brian             | ? ami-0f6b2119 | Stopped                           |
-| Andrew Bolton     | andrew            | ? ami-0f6b2119 | Stopped                           |
-| Zane              | zane              | ? ami-0f6b2119 | Stopped                           |
-| Marie Huber       | marie             | ? ami-0f6b2119 | Stopped                           |
-| Stuart Altschulet | oreilly-223       | ami-751b2c63   | Stopped                           |
-| Guillaume Alleon  | guillaume         | ami-751b2c63   | Stopped                           |
-| William McInroy   | liam              | ami-751b2c63   | Stopped                           |
-| Michael Truell    | michael           | ami-751b2c63   | Stopped                           |
-|                   | vsw-nelson        |                |                                   |
-|                   | vsw-nelson-eeg    |                |                                   |
-|                   | vsw-nelson-survey |                |                                   |
-| Marie Huber       | mariehuber        |                |                                   |
-| Andrey Koval      | school-39         | ami-751b2c63   | Week-to-week, since summer school |
-|-------------------+-------------------+----------------+-----------------------------------|
+| Person               | Organization                      | Username          | AMI            | Status                                                |
+|----------------------+-----------------------------------+-------------------+----------------+-------------------------------------------------------|
+| Steven Berman        | Deloitte                          | steven            | ? ami-0f6b2119 | Stopped                                               |
+| Veronica Sara Weiner | Probcomp                          | guest-1           | ? ami-0f6b2119 | 8/12/17 Supposed to migrate to probcomp cluster       |
+| Brian Pauls          | Probcomp / visitor                | brian             | ? ami-0f6b2119 | Stopped                                               |
+| Andrew Bolton        | Academic collaborator             | andrew            | ? ami-0f6b2119 | 8/12/17 Continuing to use for the forseeable future   |
+| Zane                 | Probcomp                          | zane              | ? ami-0f6b2119 | Stopped                                               |
+| Marie Huber          | Probcomp                          | marie             | ? ami-0f6b2119 | Stopped                                               |
+| Stuart Altschulet    | Bank of America                   | oreilly-223       | ami-751b2c63   | Stopped                                               |
+| Guillaume Alleon     | Airbus                            | guillaume         | ami-751b2c63   | Stopped                                               |
+| William McInroy      | Probcomp                          | liam              | ami-751b2c63   | Stopped                                               |
+| Michael Truell       | Probcomp                          | michael           | ami-751b2c63   | Stopped                                               |
+| Veronica Sara Weiner | Probcomp                          | vsw-nelson        | ?              | Stopped                                               |
+| Veronica Sara Weiner | Probcomp                          | vsw-nelson-eeg    | ?              | Stopped                                               |
+| Veronica Sara Weiner | Probcomp                          | vsw-nelson-survey | ?              | Stopped                                               |
+| Marie Huber          | Probcomp                          | mariehuber        | ami-751b2c63   | 8/12/17 Plan to teach how to stop and restart herself |
+| Andrey Koval         | Vancouver Island Health Authority | school-39         | ami-751b2c63   | Week-to-week, since the PPAML summer school           |
+|----------------------+-----------------------------------+-------------------+----------------+-------------------------------------------------------|
 
 The AMI is relevant because cloudformation update-stack will destroy
 and recreate the instance, losing all data on it, if one asks to
-change the AMI (even inadvertently)
+change the AMI (even inadvertently).  The AMI also indicates
+(indirectly) whether the Jupyter server will restart on its own if the
+instance is rebooted.

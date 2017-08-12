@@ -139,7 +139,7 @@ Or
 
 - write the new password to `jupyter-passwords/<user>.passwd`
 - `python write-jupyter-passwords.py <user>`
-- `./set-jupyter-password.sh`
+- `./set-jupyter-password.sh <user>`
 
 ### Restart a user's Jupyter notebook server, if needed
 
@@ -156,6 +156,10 @@ https://<user>.stack.probcomp.net/
 ### Share usage logs with the lab
 
 `rsync -r -v logs/ probcomp-1.csail.mit.edu:/data/probcomp/ppaml/probcomp-stack-logs`
+
+### Assess and explain current $ burn rate
+
+`./aws-spend.sh`
 
 Deploying locally in Docker
 ---------------------------
