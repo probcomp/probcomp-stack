@@ -129,6 +129,11 @@ https://github.com/probcomp/probcomp-stack/issues/38
   `ssh -i <private-key> -o UserKnownHostsFile=./known_hosts/<user> -o CheckHostIP=no -o StrictHostKeyChecking=yes ubuntu@ssh.<user>.stack.probcomp.net`
   with the default key (namely, bch20170503-ec2.pem)
 
+### Transfer files to and from the instance
+
+- `put.sh <user> <local-source> <remote-dest>`
+- `get.sh <user> <remote-source> <local-dest>`
+
 ### Change a user's Jupyter notebook password
 
 - SSH into the instance
