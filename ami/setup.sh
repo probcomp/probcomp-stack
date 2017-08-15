@@ -17,12 +17,12 @@ sudo apt-get upgrade -qq
 sudo apt-get install -qq lsb-release
 sudo apt-get install -qq wget
 
-wget http://probcomp.csail.mit.edu/ubuntu-prerelease/probcomp-ubuntu-20170731.asc
-echo 1ae1d6fa87c33f81eaf3729dbd304b1c66f4a310fab6e673b122950aacb1b706 \
-    probcomp-ubuntu-20170731.asc \
+wget http://probcomp.csail.mit.edu/ubuntu-prerelease/probcomp-ubuntu-20170815.asc
+echo ad5ab6283116df2db33de5e1a39cba1072297c4c4b06152f29b36831dd2f2178 \
+    probcomp-ubuntu-20170815.asc \
 | sha256sum -c
 
-sudo apt-key add probcomp-ubuntu-20170731.asc
+sudo apt-key add probcomp-ubuntu-20170815.asc
 
 echo deb http://probcomp.csail.mit.edu/ubuntu-prerelease \
     $(lsb_release -s -c) main \
