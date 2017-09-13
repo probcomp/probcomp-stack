@@ -7,7 +7,7 @@ services:
   jupyter: &app_base
     build:
       context: docker/
-      dockerfile: probcomp-scipy-notebook
+      dockerfile: shenanigans-notebook
     ports:
       - 8888:8888
     volumes:

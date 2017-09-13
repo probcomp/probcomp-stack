@@ -23,8 +23,6 @@ RUN             apt-get update -qq && \
                 apt-get install -qq --allow-unauthenticated \
                         probcomp-ubuntu-keyring \
                         python-bayeslite \
-                        python-cgpm \
-                        python-crosscat \
                         python-iventure \
                         python-pip \
                         python-pytest \
@@ -33,12 +31,12 @@ RUN             apt-get update -qq && \
                         python-virtualenv \
                         ; # end of probcomp packages
 
-# install some extra conda packages needed for probcomp
-RUN             conda install -n python2 --quiet --yes \
-                        'apsw'
+USER            $NB_USER
 
 RUN             conda install -n python2 -c probcomp --quiet --yes \
-                        'crosscat'
+                        'cgpm' 'crosscat'
+
+RUN             bash -c 'source activate python2 && pip install apsw'
 
 ENV             CONTENT_URL probcomp-oreilly20170627.s3.amazonaws.com/content-package.tgz
 ADD             docker-entrypoint.sh /usr/bin

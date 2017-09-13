@@ -14,7 +14,7 @@ fi
 
 # create symlinks for apt packages to work with conda
 cd /opt/conda/envs/python2/lib/python2.7/site-packages
-for p in bayeslite cpgm iventure jupyter_probcomp venture; do
+for p in bayeslite iventure jupyter_probcomp venture; do
   ln -sf /usr/lib/python2.7/dist-packages/$p
 done
 
