@@ -8,6 +8,7 @@ spec:
       targetPort: http
   selector:
     app: jupyter
+  type: LoadBalancer
 ---
 apiVersion: apps/v1beta1
 kind: StatefulSet
@@ -31,7 +32,7 @@ spec:
             memory: 2000Mi
         ports:
         - name: http
-          containerPort: 8080
+          containerPort: 8888
         volumeMounts:
         - name: jupyter-data
           mountPath: /notebook
