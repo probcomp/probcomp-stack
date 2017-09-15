@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jupyter-ulli
+spec:
+  ports:
+    - port: 80
+      targetPort: http
+  selector:
+    app: jupyter-ulli
+  type: LoadBalancer
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: jupyter-ulli
+  labels:
+    app: jupyter-ulli
+spec:
+  serviceName: jupyter-ulli
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jupyter-ulli
+    spec:
+      containers:
+      - name: jupyter-ulli
+        image: us.gcr.io/hazel-aria-174703/probcomp:0.3
+        resources:
+          limits:
+            memory: 32000Mi
+            cpu: 12
+        ports:
+        - name: http
+          containerPort: 8888
+        volumeMounts:
+        - name: jupyter-data-ulli
+          mountPath: /notebook
+  volumeClaimTemplates:
+  - metadata:
+      name: jupyter-data-ulli
+      annotations:
+        volume.beta.kubernetes.io/storage-class: "standard"
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 10Gi
