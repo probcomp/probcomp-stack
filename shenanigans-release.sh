@@ -1,7 +1,7 @@
 #!/bin/sh
 
 set -Ceu
-release=${1:-0.3}
+release=${1:-0.4}
 
 # login to gcr
 GOOGLE_APPLICATION_CREDENTIALS=~/.gcp/probcomp.json

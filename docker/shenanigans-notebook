@@ -36,7 +36,7 @@ USER            $NB_USER
 RUN             conda install -n python2 -c probcomp --quiet --yes \
                         'cgpm' 'crosscat'
 
-RUN             bash -c 'source activate python2 && pip install apsw'
+RUN             bash -c 'source activate python2 && pip install apsw flask'
 
 ENV             CONTENT_URL probcomp-oreilly20170627.s3.amazonaws.com/content-package.tgz
 ADD             docker-entrypoint.sh /usr/bin
