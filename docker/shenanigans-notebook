@@ -40,5 +40,6 @@ RUN             bash -c 'source activate python2 && pip install apsw flask'
 
 ENV             CONTENT_URL probcomp-oreilly20170627.s3.amazonaws.com/content-package.tgz
 ADD             docker-entrypoint.sh /usr/bin
+ADD             magics.py /usr/lib/python2.7/dist-packages/iventure/magics.py
 
 ENTRYPOINT      docker-entrypoint.sh
