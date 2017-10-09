@@ -1,0 +1,182 @@
+<h1>
+probcomp-stack-0.2
+</h1>
+
+<p>
+This is the release page for probcomp-stack-0.2 from the 
+<a href="http://probcomp.csail.mit.edu/"
+>MIT Probabilistic Computing Project</a>.
+
+The release is a stand-alone 
+<a href="https://www.docker.com/">docker</a> image that includes a
+running
+<a href="https://jupyter.org/">jupyter notebook server</a> through which the
+probcomp software and documentation can be accessed.
+</p>
+
+<p>
+The probcomp stack contains three probabilistic programming platforms:
+</p>
+
+<ol>
+<li> The <a href="http://probcomp.csail.mit.edu/bayesdb/doc/index.html">bayeslite</a>
+  implementation of BayesDB, a platform for
+  AI-assisted data science. 
+  (<a href="https://github.com/probcomp/bayeslite">github</a>)
+</li>
+
+<li> The <a href="http://probcomp.csail.mit.edu/venture/">venturelite</a> implementation of 
+  Venture, an interactive
+  probabilistic reasoning platform that has been used for teaching
+  probabilistic modeling and inference and for rapid prototyping in
+  computer vision, data science, and robotics. </li>
+
+<li> A pre-alpha version of Gen.jl, a Julia implementation of Gen, a
+  probabilistic meta-programming platform and high-performance run-time
+  system suitable for production engineering in probabilistic
+  robotics. (no documentation is available at this time)</li>
+</ol>
+
+<p>
+Key capabilities of these platforms can be accessed via the notebooks included with this release.
+</p>
+
+<p>
+Version 0.2 of the probcomp stack was created on 18 July 2017.
+</p>
+
+<h2>
+Before you start
+</h2>
+
+<p>
+This is research software.  It is certain to contain flaws.  No warranty of any kind
+is implied by this release.  Use it at your own risk.
+</p>
+
+<p>
+The installation requires some level of technical ability,
+specifically the ability to use the command line, and to install
+prerequisite software if required.
+</p>
+
+<h3>Hardware requirements</h3>
+
+<p>
+The notebooks in this release have successfully executed with the
+following hardware configuration, with acceptable performance:
+</p>
+
+<ul>
+  <li> 60G RAM </li>
+  <li> 32 CPU cores </li>
+  <li> 2.5 Gbyte available disk space </li>
+</ul>
+
+<p>
+Running with much less than this may lead to heavy load, long
+delays, and/or crashes. Actual application demands vary depending on the
+particulars of the data set, both on its size and on the data itself.
+</p>
+
+<p>
+We assume that you are using a workstation possessing the recommended
+resources via the workstation's monitor and keyboard.  Client/server
+configurations are possible for this software with additional
+setup, but methods vary by operating system.  We have not prepared
+documentation for client/server configurations.
+</p>
+
+<!-- 
+<blockquote>
+<p>
+[NOTE: It is JAR's feeling that very few people will have a hefty
+workstation with a head; indeed I have personally never seen such a thing.  They are
+much more likely to have a hefty server and an ordinary laptop or desktop.  This
+is why I feel compelled to say <i>something</i> about client/server
+configuration: If we do not acknowledge the possibility, then it will sound
+as if a same-computer configuration is <i>required</i> when it is not,
+and we will immediately decimate the potential user base.]
+
+<p>
+[CONTINUED: Mentioning 'ssh tunnel' could be a useful hint
+for some portion of the audience (not all of it), but I understand
+that we're not supposed to mention ssh for some reason?  There are
+other access options (e.g. https) but we don't have time before Wednesday to
+implement any hooks or features that would make this setup easy and
+documentable.  I see the two constraints "no new implementation work now" and
+"do not mention ssh" as forcing the above weasel-wording.]
+</blockquote>
+ -->
+
+
+<h3>Software prerequisites</h3>
+
+<p>
+probcomp-stack-0.2 has been tested on ubuntu 16.04.2 LTS, but we
+anticipate that it will run on any operating system that supports
+<a href="https://www.docker.com/">Docker</a>, such as most GNU/Linux
+variants, Mac OS X, and 
+<a href="https://docs.docker.com/docker-for-windows/install/#what-to-know-before-you-install"
+>64-bit Windows 10</a>.
+</p>
+
+<p>
+probcomp-stack-0.2 requires Docker version 1.6 or later.
+</p>
+
+<h2>Download and installation</h2>
+
+<ol>
+  <li>
+    <p>Download and save <a href="https://probcomp-1.csail.mit.edu/probcomp-stack/probcomp-stack-full-0.2.tar.gz"
+       >the probcomp-stack-0.2 distribution</a> (370 MB).</p>
+
+    <p>Optional: To check the integrity of the download, verify that the SHA256
+checksum is 145afeb0ee0cfadbe874e301c4117294ab7055c737eeab0f18135f35aedf2f98.</p>
+  </li>
+
+  <li>
+    <p>
+      At the command line, navigate to the directory containing
+      <code>probcomp-stack-full-0.2.tar.gz</code>.
+    </p>
+  <li>
+    <p>
+      Tell docker about the probcomp-stack container as follows:</p>
+
+    <pre><code> $ docker load --input probcomp-stack-full-0.2.tar.gz</code></pre>
+  </li>
+
+</ol>
+
+<h2>How to run</h2>
+
+<ol>
+  <li>
+      At the command line, navigate to the directory containing
+      <code>probcomp-stack-full-0.2.tar</code>.
+  </li>
+  <li>
+    <p>
+      Start the Docker container as follows:</p>
+
+    <pre><code> $ docker run --rm --publish 127.0.0.1:8080:8080/tcp \
+     probcomp/stack-release:0.2</code></pre>
+  </li>
+  <li>
+    <p>In a web browser, visit the location 
+    <a href="http://localhost:8080/"><code>http://localhost:8080/</code></a></p>
+  </li>
+</ol>
+
+<p>
+In the unlikely event that port 8080 is unavailable on your machine, feel free to choose a
+different port.
+</p>
+
+<h3>Saving your work</h3>
+
+<p>
+To save any changed or new notebooks, use 'Download' in the Jupyter notebook 'File' menu.
+</p>
